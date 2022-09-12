@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '网上书店销售管理系统',
+  title: '网上银行厅堂管理系统',
 
   /**
    * @type {boolean} true | false
