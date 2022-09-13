@@ -36,14 +36,14 @@ export const constantRoutes = [{
     }
   },
   {
-    path: 'salesReport',
-    name: 'salesReport',
-    component: () => import('@/pages/home/salesReport'),
+    path: 'Dashboard',
+    name: 'Dashboard',
+    component: () => import('@/pages/home/home'),
     meta: {
-      title: '销售统计',
-      icon: 'el-icon-s-data'
+      title: '统计分析',
+      icon: 'el-icon-s-check'
     }
-  }
+  },
   ]
 },
 // 人员信息管理

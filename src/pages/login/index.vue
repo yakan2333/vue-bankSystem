@@ -49,10 +49,14 @@
         </span>
       </el-form-item>
 
+      <el-checkbox v-model="loginForm.rememberMe" style="margin: 0 0 25px 0">
+        Remember me
+      </el-checkbox>
+
       <el-button
         :loading="loading"
         type="primary"
-        style="width: 100%; margin-bottom: 30px"
+        style="width: 100%; margin-bottom: 15px"
         @click.native.prevent="handleLogin"
       >
         Login
@@ -159,17 +163,9 @@ export default {
 
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-
 $bg: #283443;
-$light_gray: #fff;
+$light_gray: grey;
 $cursor: #fff;
-
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
-    color: $cursor;
-  }
-}
 
 /* reset element-ui css */
 .login-container {
@@ -185,7 +181,7 @@ $cursor: #fff;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
       color: $light_gray;
-      height: 47px;
+      height: 40px;
       caret-color: $cursor;
 
       &:-webkit-autofill {
@@ -196,8 +192,7 @@ $cursor: #fff;
   }
 
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
   }
@@ -205,46 +200,46 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$light_gray: #eee;
-
+$black_4: #454545;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-image: url(../../assets/login.png);
+  background-image: url(../../assets/login.jpg);
   background-repeat: no-repeat;
-  backgroundsize: "100% 100%";
   background-size: cover;
   overflow: hidden;
 
   .login-form {
     position: relative;
+    background: #ffffff;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+    padding: 30px 35px 0;
+    margin: 130px auto 0;
+    border-radius: 10px;
     overflow: hidden;
   }
-
+  // 底下小字
   .tips {
-    font-size: 15px;
-    color: #fff;
+    font-size: 14px;
+    color: grey;
     margin-bottom: 5px;
   }
 
   .svg-container {
     padding: 6px 5px 6px 15px;
-    color: white;
+    color: $black_4;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
   }
-
+  // 标题
   .title-container {
     position: relative;
 
     .title {
       font-size: 26px;
-      color: $light_gray;
+      color: $black_4;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
@@ -256,7 +251,7 @@ $light_gray: #eee;
     right: 10px;
     top: 7px;
     font-size: 16px;
-    color: white;
+    color: $black_4;
     cursor: pointer;
     user-select: none;
   }
