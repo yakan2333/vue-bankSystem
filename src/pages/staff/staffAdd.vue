@@ -74,7 +74,6 @@ export default {
   data() {
     return {
       titleMsg: "",
-      fileList: [], //绑定文件控件
       //表单数据
       ruleForm: {
         id: "",
@@ -210,7 +209,7 @@ export default {
     },
   },
   mounted() {
-    this.getLastData();
+    // this.getLastData();
   },
 };
 </script>

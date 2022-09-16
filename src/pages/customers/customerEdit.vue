@@ -73,27 +73,33 @@
           <img src="./images/card_part.png" alt="" class="card-img" />
           <div class="text item">余额总计:6666.66元</div>
         </el-card>
-        <el-card class="box-card">
+        <el-card class="box-card" :body-style="{ padding: '0px' }">
           <div slot="header" class="clearfix">
-            <span>银行卡2</span>
-            <el-button style="float: right; padding: 3px 0" type="text"
-              >操作按钮</el-button
+            <span>银行卡1</span>
+            <span class="card-id">8888 8888 8888 8888</span>
+            <el-button
+              style="float: right; padding: 3px 0"
+              type="text"
+              @click.native="handleDetail"
+              >查看明细</el-button
             >
           </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ "列表内容 " + o }}
-          </div>
+          <img src="./images/card_part.png" alt="" class="card-img" />
+          <div class="text item">余额总计:6666.66元</div>
         </el-card>
-        <el-card class="box-card">
+        <el-card class="box-card" :body-style="{ padding: '0px' }">
           <div slot="header" class="clearfix">
-            <span>银行卡3</span>
-            <el-button style="float: right; padding: 3px 0" type="text"
-              >操作按钮</el-button
+            <span>银行卡1</span>
+            <span class="card-id">8888 8888 8888 8888</span>
+            <el-button
+              style="float: right; padding: 3px 0"
+              type="text"
+              @click.native="handleDetail"
+              >查看明细</el-button
             >
           </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ "列表内容 " + o }}
-          </div>
+          <img src="./images/card_part.png" alt="" class="card-img" />
+          <div class="text item">余额总计:6666.66元</div>
         </el-card>
       </el-main>
     </el-container>
@@ -171,7 +177,7 @@ export default {
     },
     //查看明细
     handleDetail() {
-      this.$router.push("cardDetail");
+      this.$router.push({ name: "cardDetail" });
     },
   },
 

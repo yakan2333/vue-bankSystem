@@ -84,7 +84,16 @@ export default {
     return {
       loading: false,
       postData: "", //传递数据
-      employees: [],
+      employees: [
+        {
+          id: "1",
+          name: "1",
+          sex: "1",
+          age: "1",
+          phone: "1",
+          location: "1",
+        },
+      ],
       ruleForm: {
         id: "",
         name: "",

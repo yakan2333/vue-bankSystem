@@ -93,6 +93,7 @@ export const constantRoutes = [{
     },
     hidden: true,
   },
+
   ]
 },
 
@@ -136,6 +137,20 @@ export const constantRoutes = [{
   ]
 },
 
+// 机构信息设置
+{
+  path: '/configuration',
+  component: Layout,
+  children: [{
+    path: 'index',
+    name: 'configuration',
+    component: () => import('@/pages/configuration/index'),
+    meta: {
+      title: '机构参数配置',
+      icon: 'el-icon-setting'
+    }
+  }]
+},
 
 // 个人信息设置
 {
