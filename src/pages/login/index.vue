@@ -161,46 +161,39 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="css">
 /* 修复input 背景不协调 和光标变色 */
-$bg: #283443;
-$light_gray: grey;
-$cursor: #fff;
-
 /* reset element-ui css */
-.login-container {
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 85%;
+.login-container .el-input {
+  display: inline-block;
+  height: 47px;
+  width: 85%;
+}
 
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 40px;
-      caret-color: $cursor;
+.login-container .el-input input {
+  background: transparent;
+  border: 0px;
+  -webkit-appearance: none;
+  border-radius: 0px;
+  padding: 12px 5px 12px 15px;
+  color: grey;
+  height: 40px;
+  caret-color: #fff;
+}
 
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
-    }
-  }
+.login-container .el-input input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #283443 inset !important;
+  -webkit-text-fill-color: #fff !important;
+}
 
-  .el-form-item {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    color: #454545;
-  }
+.login-container .el-form-item {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  color: #454545;
 }
 </style>
 
-<style lang="scss" scoped>
-$black_4: #454545;
+<style lang="css" scoped>
 .login-container {
   min-height: 100%;
   width: 100%;
@@ -208,52 +201,52 @@ $black_4: #454545;
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
+}
 
-  .login-form {
-    position: relative;
-    background: #ffffff;
-    width: 520px;
-    max-width: 100%;
-    padding: 30px 35px 0;
-    margin: 130px auto 0;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  // 底下小字
-  .tips {
-    font-size: 14px;
-    color: grey;
-    margin-bottom: 5px;
-  }
+.login-container .login-form {
+  position: relative;
+  background: #ffffff;
+  width: 520px;
+  max-width: 100%;
+  padding: 30px 35px 0;
+  margin: 130px auto 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $black_4;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-  }
-  // 标题
-  .title-container {
-    position: relative;
+.login-container .tips {
+  font-size: 14px;
+  color: grey;
+  margin-bottom: 5px;
+}
 
-    .title {
-      font-size: 26px;
-      color: $black_4;
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-weight: bold;
-    }
-  }
+.login-container .svg-container {
+  padding: 6px 5px 6px 15px;
+  color: #454545;
+  vertical-align: middle;
+  width: 30px;
+  display: inline-block;
+}
 
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: $black_4;
-    cursor: pointer;
-    user-select: none;
-  }
+.login-container .title-container {
+  position: relative;
+}
+
+.login-container .title-container .title {
+  font-size: 26px;
+  color: #454545;
+  margin: 0px auto 40px auto;
+  text-align: center;
+  font-weight: bold;
+}
+
+.login-container .show-pwd {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  font-size: 16px;
+  color: #454545;
+  cursor: pointer;
+  user-select: none;
 }
 </style>

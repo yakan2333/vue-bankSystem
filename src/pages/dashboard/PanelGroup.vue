@@ -6,7 +6,7 @@
           <i class="el-icon-s-custom" id="card-panel-icon"></i>
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">New Visits</div>
+          <div class="card-panel-text">新客户数量</div>
           <count-to
             :start-val="0"
             :end-val="102400"
@@ -22,7 +22,7 @@
           <i class="el-icon-s-marketing" id="card-panel-icon"></i>
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">Messages</div>
+          <div class="card-panel-text">本周流量</div>
           <count-to
             :start-val="0"
             :end-val="81212"

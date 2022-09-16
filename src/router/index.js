@@ -46,6 +46,56 @@ export const constantRoutes = [{
   },
   ]
 },
+
+// 客户信息管理
+{
+  path: '/customers',
+  redirect: '/customers/customerList',
+  component: Layout,
+  name: 'customers',
+  meta: {
+    title: '客户信息管理',
+    icon: 'el-icon-user-solid'
+  },
+  children: [{
+    path: 'customerList',
+    name: 'customer',
+    component: () => import('@/pages/customers/customerList'),
+    meta: {
+      title: '客户信息列表',
+      icon: 'el-icon-s-custom'
+    },
+  },
+  {
+    path: 'customerAdd',
+    name: 'customerAdd',
+    component: () => import('@/pages/customers/customerAdd'),
+    meta: {
+      title: '新增客户',
+      icon: 'el-icon-s-check'
+    }
+  },
+  {
+    path: 'customerEdit',
+    name: 'customerEdit',
+    component: () => import('@/pages/customers/customerEdit'),
+    meta: {
+      title: '客户信息编辑',
+    },
+    hidden: true,
+  },
+  {
+    path: 'cardDetail',
+    name: 'cardDetail',
+    component: () => import('@/pages/customers/cardDetail'),
+    meta: {
+      title: '银行卡明细',
+    },
+    hidden: true,
+  },
+  ]
+},
+
 // 人员信息管理
 {
   path: '/staff',
