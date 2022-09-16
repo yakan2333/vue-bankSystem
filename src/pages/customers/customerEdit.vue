@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-container>
-      <el-aside width="50%">
+      <el-aside width="45%">
         <div class="card">
           <el-form
             ref="ruleForm"

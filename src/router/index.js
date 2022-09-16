@@ -55,7 +55,7 @@ export const constantRoutes = [{
   name: 'customers',
   meta: {
     title: '客户信息管理',
-    icon: 'el-icon-user-solid'
+    icon: 'el-icon-s-custom'
   },
   children: [{
     path: 'customerList',
@@ -72,7 +72,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/customers/customerAdd'),
     meta: {
       title: '新增客户',
-      icon: 'el-icon-s-check'
+      icon: 'el-icon-coordinate'
     }
   },
   {
@@ -113,7 +113,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/staff/staffList'),
     meta: {
       title: '人员信息列表',
-      icon: 'el-icon-s-custom'
+      icon: 'el-icon-user'
     },
   },
   {
@@ -122,7 +122,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/staff/staffAdd'),
     meta: {
       title: '新增人员',
-      icon: 'el-icon-s-check'
+      icon: 'el-icon-plus'
     }
   },
   {
@@ -147,7 +147,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/configuration/index'),
     meta: {
       title: '机构参数配置',
-      icon: 'el-icon-setting'
+      icon: 'el-icon-office-building'
     }
   }]
 },
