@@ -26,6 +26,8 @@
         <p>2022/9/16 16:27 管理员A修改了机构配置信息</p>
       </el-descriptions-item>
     </el-descriptions>
+    <el-button type="primary" icon="el-icon-edit">编辑</el-button>
+    <el-button type="success" icon="el-icon-check">保存</el-button>
   </div>
 </template>
 
