@@ -12,7 +12,7 @@ import axios from 'axios'
 import qs from 'qs'
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
-axios.defaults.baseURL = "http://localhost:8088/api"
+axios.defaults.baseURL = "http://localhost:8080/api"
 
 import App from './App'
 import store from './store'

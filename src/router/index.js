@@ -41,7 +41,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/home/home'),
     meta: {
       title: '统计分析',
-      icon: 'el-icon-s-check'
+      icon: 'el-icon-pie-chart'
     }
   },
   ]
@@ -131,6 +131,46 @@ export const constantRoutes = [{
     component: () => import('@/pages/staff/staffEdit'),
     meta: {
       title: '人员信息编辑',
+    },
+    hidden: true,
+  },
+  ]
+},
+
+// 基金交易
+{
+  path: '/fundTrade',
+  redirect: '/fundTrade/fundList',
+  component: Layout,
+  name: 'fundTrade',
+  meta: {
+    title: '基金交易',
+    icon: 'el-icon-coin'
+  },
+  children: [{
+    path: 'fundList',
+    name: 'fundList',
+    component: () => import('@/pages/fundTrade/fundList'),
+    meta: {
+      title: '基金列表',
+      icon: 'el-icon-s-marketing'
+    },
+  },
+  {
+    path: 'fundPurchase',
+    name: 'fundPurchase',
+    component: () => import('@/pages/fundTrade/fundPurchase'),
+    meta: {
+      title: '购买基金',
+      icon: 'el-icon-shopping-cart-2'
+    }
+  },
+  {
+    path: 'fundDetail',
+    name: 'fundDetail',
+    component: () => import('@/pages/fundTrade/fundDetail'),
+    meta: {
+      title: '基金详情',
     },
     hidden: true,
   },
