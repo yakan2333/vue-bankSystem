@@ -98,7 +98,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDeleteRow(scope.row.id)"
+            @click="handlePurchase(scope.row)"
           >
             购买
           </el-button>

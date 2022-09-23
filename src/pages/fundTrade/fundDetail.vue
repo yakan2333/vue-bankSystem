@@ -60,7 +60,7 @@
             </el-input>
           </el-col>
           <div style="float: right">
-            <el-button type="primary" plain
+            <el-button type="primary" plain @click="handToBuy"
               ><i class="el-icon-coin"></i>定投</el-button
             >
           </div>

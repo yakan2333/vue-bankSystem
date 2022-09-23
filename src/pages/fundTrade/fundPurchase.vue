@@ -1,10 +1,11 @@
 <template>
-  <div style="padding: 40px">
+  <div style="padding: 30px">
     <div class="title">
       <img src="./images/ico.jpg" />
-      <span>产品名称</span>
-      <span>{{ ruleForm.name }}</span>
+      <span>产品名称:</span>
+      <span>{{ FundData.name }}</span>
     </div>
+    <el-divider content-position="left"> 请填写基金购买信息 </el-divider>
     <div class="card">
       <el-form
         :model="ruleForm"
@@ -16,24 +17,75 @@
       >
         <el-row>
           <el-col :span="12">
-            <el-form-item label="员工编号" prop="id">
-              <el-input v-model="ruleForm.num" readonly />
+            <el-form-item label="基金代码" prop="num">
+              <el-input v-model="FundData.num" readonly />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="员工名称" prop="name">
-              <el-input v-model="ruleForm.name" />
+            <el-form-item label="交易类型" prop="name">
+              <el-input v-model="FundData.name" />
             </el-form-item>
           </el-col>
         </el-row>
-
+        <el-row :gutter="15">
+          <el-col :span="12">
+            <el-form-item label="购买金额" prop="amount">
+              <el-input v-model="ruleForm.amount" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            首次购买：10.00元起，追加购买1.00元起，单笔上限--元，日累计上限--元
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="币种" prop="currency">
+              <el-input v-model="FundData.currency" readonly />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="银行账户" prop="account">
+              <el-input v-model="account" readonly />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="附加码" prop="validCode">
+              <el-input v-model="ruleForm.validCode" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-divider content-position="left"> 手续费信息信息 </el-divider>
+        <FundCard></FundCard>
+        <div class="checkList">
+          <el-checkbox-group v-model="checkList">
+            <el-checkbox label="1"
+              >本人已阅读并同意
+              <span>《中国建设银行证券投资基金投资人权益须知》</span>
+              <span>《长城久嘉创新公募基金产品资料概要》</span>
+            </el-checkbox>
+            <el-checkbox label="2"
+              >本人同意并授权建行按照
+              <span>《中国建设银行代理销售开放式基金业务个人信息授权书》</span>
+              相关约定处理本人的个人敏感信息</el-checkbox
+            >
+            <el-checkbox label="3">
+              本人同意并授权建行按照
+              <span>《中国建设银行代理销售开放式基金业务个人信息授权书》</span>
+              相关约定对外提供本人的个人信息
+            </el-checkbox>
+          </el-checkbox-group>
+        </div>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">
             确定
           </el-button>
-          <el-button @click="resetForm('ruleForm')"> 重置 </el-button>
+          <el-button @click="resetForm('ruleForm')"> 取消 </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -41,18 +93,24 @@
 </template>
 
 <script>
-import vDistpicker from "v-distpicker";
 import { judgeEensit } from "@/utils/judge-Eensit";
+import FundCard from "./fundCard.vue";
 export default {
   components: {
-    vDistpicker,
+    FundCard,
   },
   name: "fundPurchase",
   data() {
     return {
       titleMsg: "",
+      checkList: ["3"],
       //表单数据
+      account: "88888888888",
       ruleForm: {
+        amount: 10,
+        validCode: "23333",
+      },
+      FundData: {
         cumulativeEquity: 1.8698,
         currency: "人民币",
         galaxyRating: 5,
@@ -125,25 +183,36 @@ export default {
     },
   },
   mounted() {
-    // var postData = sessionStorage.getItem("postFundData");
-    // this.ruleForm = postData;
+    // this.FundData = sessionStorage.getItem("postFundData");
   },
 };
 </script>
 <style  scoped>
 .title {
+  display: flex;
   height: 60px;
   width: 800px;
 }
 .title span {
   display: inline-block;
   height: 60px;
-  width: 300px;
-  text-align: center;
+  width: 250px;
+  padding-left: 20px;
+  text-align: left;
   line-height: 60px;
+  font-size: 18px;
+}
+.el-divider__text {
   font-size: 16px;
 }
 .card {
-  margin: 20px;
+  margin: 40px 20px;
+}
+.checkList {
+  margin-top: 20px;
+}
+.checkList span {
+  color: #0066b3;
+  font-weight: bolder;
 }
 </style>
