@@ -12,11 +12,11 @@
       </el-col>
       <el-col :span="5">
         <el-select v-model="fund.type" placeholder="请选择基金类型">
-          <el-option label="股票型" value="shanghai"></el-option>
-          <el-option label="混合型" value="beijing"></el-option>
-          <el-option label="债券型" value="shanghai"></el-option>
-          <el-option label="QDII" value="beijing"></el-option>
-          <el-option label="货币型" value="shanghai"></el-option>
+          <el-option label="股票型" value="股票型"></el-option>
+          <el-option label="混合型" value="混合型"></el-option>
+          <el-option label="债券型" value="债券型"></el-option>
+          <el-option label="QDII" value="QDII"></el-option>
+          <el-option label="货币型" value="货币型"></el-option>
         </el-select>
       </el-col>
       <el-col :span="6" align="center">

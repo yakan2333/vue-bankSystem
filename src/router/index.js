@@ -22,7 +22,7 @@ export const constantRoutes = [{
   path: '/',
   component: Layout,
   meta: {
-    title: '数据盘点',
+    title: '首页',
     icon: 'dashboard'
   },
   redirect: '/home',
@@ -31,16 +31,7 @@ export const constantRoutes = [{
     name: 'home',
     component: () => import('@/pages/home/index'),
     meta: {
-      title: '首页',
-      icon: 'example'
-    }
-  },
-  {
-    path: 'Dashboard',
-    name: 'Dashboard',
-    component: () => import('@/pages/home/home'),
-    meta: {
-      title: '统计分析',
+      title: '数据盘点',
       icon: 'el-icon-pie-chart'
     }
   },

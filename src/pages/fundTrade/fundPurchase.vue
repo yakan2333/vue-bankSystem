@@ -53,11 +53,27 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item label="附加码" prop="validCode">
               <el-input v-model="ruleForm.validCode" />
             </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <div class="verifyCode">
+              <a
+                href="javascript:void(0);"
+                rel="external nofollow"
+                title="点击更换验证码"
+              >
+                <img
+                  id="imgVerify"
+                  :src="imgSrc"
+                  alt="更换验证码"
+                  @click="getVerify()"
+                />
+              </a>
+            </div>
           </el-col>
         </el-row>
         <el-divider content-position="left"> 手续费信息信息 </el-divider>
@@ -104,6 +120,7 @@ export default {
     return {
       titleMsg: "",
       checkList: ["3"],
+      imgSrc: "",
       //表单数据
       account: "88888888888",
       ruleForm: {
@@ -159,7 +176,12 @@ export default {
   computed: {},
   methods: {
     /*标题敏感词判断*/
-
+    //获取验证码
+    getVerify() {
+      let v = Math.random();
+      this.imgSrc = "http://localhost:8080/api/getVerify?" + v;
+      console.log("验证码是" + v);
+    },
     //提交
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -184,6 +206,7 @@ export default {
   },
   mounted() {
     // this.FundData = sessionStorage.getItem("postFundData");
+    this.getVerify();
   },
 };
 </script>
@@ -214,5 +237,11 @@ export default {
 .checkList span {
   color: #0066b3;
   font-weight: bolder;
+}
+.verifyCode {
+  line-height: 60px;
+}
+#imgVerify {
+  height: 30px;
 }
 </style>

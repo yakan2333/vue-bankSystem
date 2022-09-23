@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-container>
-      <el-aside width="45%">
+      <el-aside width="40%">
         <div class="card">
           <el-form
             ref="ruleForm"
@@ -11,17 +11,17 @@
             class="demo-ruleForm"
             style="text-align: left"
           >
-            <el-row type="flex">
+            <el-row>
               <el-form-item label="客户编号" prop="id">
                 <el-input v-model="ruleForm.id" readonly />
               </el-form-item>
             </el-row>
-            <el-row type="flex">
+            <el-row>
               <el-form-item label="客户名称" prop="name">
                 <el-input v-model="ruleForm.name" />
               </el-form-item>
             </el-row>
-            <el-row type="flex">
+            <el-row>
               <el-form-item label="性别" prop="sex">
                 <el-select v-model="ruleForm.sex" placeholder="请选择性别">
                   <el-option label="男" value="男" />
@@ -29,22 +29,22 @@
                 </el-select>
               </el-form-item>
             </el-row>
-            <el-row type="flex">
+            <el-row>
               <el-form-item label="民族" prop="phone">
                 <el-input v-model="ruleForm.phone" />
               </el-form-item>
             </el-row>
-            <el-row type="flex">
+            <el-row>
               <el-form-item label="身份证号" prop="phone">
                 <el-input v-model="ruleForm.phone" />
               </el-form-item>
             </el-row>
-            <el-row type="flex">
+            <el-row>
               <el-form-item label="联系方式" prop="phone">
                 <el-input v-model="ruleForm.phone" />
               </el-form-item>
             </el-row>
-            <el-row type="flex">
+            <el-row>
               <el-form-item label="地址" prop="location">
                 <el-input v-model="ruleForm.location" />
               </el-form-item>
@@ -59,48 +59,50 @@
         </div>
       </el-aside>
       <el-main>
-        <el-card class="box-card" :body-style="{ padding: '0px' }">
-          <div slot="header" class="clearfix">
-            <span>银行卡1</span>
-            <span class="card-id">8888 8888 8888 8888</span>
-            <el-button
-              style="float: right; padding: 3px 0"
-              type="text"
-              @click.native="handleDetail"
-              >查看明细</el-button
-            >
-          </div>
-          <img src="./images/card_part.png" alt="" class="card-img" />
-          <div class="text item">余额总计:6666.66元</div>
-        </el-card>
-        <el-card class="box-card" :body-style="{ padding: '0px' }">
-          <div slot="header" class="clearfix">
-            <span>银行卡1</span>
-            <span class="card-id">8888 8888 8888 8888</span>
-            <el-button
-              style="float: right; padding: 3px 0"
-              type="text"
-              @click.native="handleDetail"
-              >查看明细</el-button
-            >
-          </div>
-          <img src="./images/card_part.png" alt="" class="card-img" />
-          <div class="text item">余额总计:6666.66元</div>
-        </el-card>
-        <el-card class="box-card" :body-style="{ padding: '0px' }">
-          <div slot="header" class="clearfix">
-            <span>银行卡1</span>
-            <span class="card-id">8888 8888 8888 8888</span>
-            <el-button
-              style="float: right; padding: 3px 0"
-              type="text"
-              @click.native="handleDetail"
-              >查看明细</el-button
-            >
-          </div>
-          <img src="./images/card_part.png" alt="" class="card-img" />
-          <div class="text item">余额总计:6666.66元</div>
-        </el-card>
+        <div class="cardList">
+          <el-card class="box-card" :body-style="{ padding: '0px' }">
+            <div slot="header" class="clearfix">
+              <span>银行卡1</span>
+              <span class="card-id">8888 8888 8888 8888</span>
+              <el-button
+                style="float: right; padding: 3px 0"
+                type="text"
+                @click.native="handleDetail"
+                >查看明细</el-button
+              >
+            </div>
+            <img src="./images/card_part.png" alt="" class="card-img" />
+            <div class="text item">余额总计:6666.66元</div>
+          </el-card>
+          <el-card class="box-card" :body-style="{ padding: '0px' }">
+            <div slot="header" class="clearfix">
+              <span>银行卡1</span>
+              <span class="card-id">8888 8888 8888 8888</span>
+              <el-button
+                style="float: right; padding: 3px 0"
+                type="text"
+                @click.native="handleDetail"
+                >查看明细</el-button
+              >
+            </div>
+            <img src="./images/card_part.png" alt="" class="card-img" />
+            <div class="text item">余额总计:6666.66元</div>
+          </el-card>
+          <el-card class="box-card" :body-style="{ padding: '0px' }">
+            <div slot="header" class="clearfix">
+              <span>银行卡1</span>
+              <span class="card-id">8888 8888 8888 8888</span>
+              <el-button
+                style="float: right; padding: 3px 0"
+                type="text"
+                @click.native="handleDetail"
+                >查看明细</el-button
+              >
+            </div>
+            <img src="./images/card_part.png" alt="" class="card-img" />
+            <div class="text item">余额总计:6666.66元</div>
+          </el-card>
+        </div>
       </el-main>
     </el-container>
   </div>
@@ -220,5 +222,11 @@ export default {
 }
 .card-img {
   width: 100%;
+}
+.cardList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 </style>
