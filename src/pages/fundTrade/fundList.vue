@@ -285,20 +285,13 @@ export default {
 </script>
 
 <style>
-/*  .block {
-    height: 100px;
-    width: 100%;
-    position: absolute;
-    left: 20%;
-    margin: 0 auto;
-    bottom: 0;
-  } */
 /* 重置el表格组件的一些内置样式 */
 .el-rate__icon {
   font-size: 10px;
 }
 .el-table .cell {
   padding-right: 0;
+  line-height: 15px;
 }
 .el-table th.el-table__cell > .cell {
   padding-right: 0;
