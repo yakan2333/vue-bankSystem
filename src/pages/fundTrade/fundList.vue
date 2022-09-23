@@ -37,14 +37,10 @@
       :header-cell-style="{ background: '#DBEBF7', color: '#333333' }"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" fixed />
+      <el-table-column type="selection" fixed />
       <!--根据查询改-->
       <el-table-column label="编号" sortable prop="num" />
-      <el-table-column label="基金名称" sortable prop="name">
-        <template scope="scope">
-          <span @click="handleEdit(scope.row)">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="基金名称" sortable prop="name" />
       <el-table-column label="最新净值" sortable prop="latestEquity" />
       <el-table-column label="累计净值" sortable prop="cumulativeEquity" />
       <el-table-column label="近一日" sortable prop="oneDay">
@@ -97,14 +93,14 @@
       <el-table-column align="center" label="操作" min-width="140">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">
-            购买
+            查看
           </el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDeleteRow(scope.row.id)"
           >
-            定投
+            购买
           </el-button>
         </template>
       </el-table-column>
@@ -129,7 +125,6 @@
 export default {
   data() {
     return {
-      loading: false,
       postData: "", //传递数据
       fund: [
         {
@@ -169,24 +164,20 @@ export default {
   methods: {
     //获取列表数据
     getData() {
-      this.loading = true;
       this.$axios("/fund/list", {
         params: this.query,
       }).then((resp) => {
+        console.log(resp);
         if (resp.data.code == 200) {
           this.pagination.currentPage = resp.data.data.current;
           this.pagination.pageSize = resp.data.data.size;
-          this.pagination.total = resp.data.data.total;
+          this.pagination.total = resp.data.data.total * 101;
           this.fund = resp.data.data.records;
         } else {
           this.pagination = {};
           this.fund = [];
         }
       });
-    },
-    //添加
-    handleAdd() {
-      this.$router.push("fundDetail");
     },
     //搜索
     handleSearch() {
@@ -201,11 +192,6 @@ export default {
     handleSizeChange(val) {
       this.query.pageSize = val;
       this.getData();
-    },
-    //选择单选
-    handleDeleteRow(id) {
-      this.array.push(id);
-      this.handleDelete();
     },
     //选择多行
     handleSelectionChange(rows) {
@@ -270,12 +256,19 @@ export default {
       this.query.currentPage = 1;
       this.getData();
     },
-    //修改
+    //查看详情
     handleEdit(row) {
       this.postFundData = JSON.stringify(row);
       sessionStorage.setItem("postFundData", this.postFundData);
       // this.$bus.$emit("staffData", this.postData);
       this.$router.push("fundDetail");
+    },
+    //购买基金
+    handlePurchase(row) {
+      this.postFundData = JSON.stringify(row);
+      sessionStorage.setItem("postFundData", this.postFundData);
+      // this.$bus.$emit("staffData", this.postData);
+      this.$router.push("fundPurchase");
     },
   },
   mounted() {
