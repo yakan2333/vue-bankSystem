@@ -8,6 +8,8 @@ import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss' // global css
 
+import BaiduMap from 'vue-baidu-map';// 导入地图
+
 import axios from 'axios'
 import qs from 'qs'
 Vue.prototype.$axios = axios
@@ -55,4 +57,8 @@ new Vue({
   router,
   store,
   render: h => h(App),
+})
+
+Vue.use(BaiduMap, {
+  ak: 'mWbG0GAtvMKbSVZLMx0ZsmSGKgrlOT2M'
 })
