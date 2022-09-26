@@ -128,6 +128,21 @@ export const constantRoutes = [{
   ]
 },
 
+// 预约服务
+
+{
+  path: '/appointment',
+  component: Layout,
+  children: [{
+    path: 'index',
+    name: 'appointment',
+    component: () => import('@/pages/appointment/index'),
+    meta: {
+      title: '预约服务',
+      icon: 'el-icon-setting'
+    }
+  }]
+},
 // 基金交易
 {
   path: '/fundTrade',

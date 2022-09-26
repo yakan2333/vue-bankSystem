@@ -39,14 +39,20 @@
       :header-cell-style="{ background: '#409EFF', color: '#FFFFFF' }"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" fixed />
+      <el-table-column type="selection" width="40" fixed />
       <!--根据查询改-->
-      <el-table-column label="编号" sortable prop="id" min-width="60%" />
-      <el-table-column label="客户名称" sortable prop="name" min-width="60%" />
-      <el-table-column label="性别" sortable prop="sex" min-width="40%" />
+      <el-table-column
+        label="身份证号"
+        sortable
+        prop="idCard"
+        min-width="100%"
+      />
+      <el-table-column label="客户名称" sortable prop="name" />
+      <el-table-column label="性别" sortable prop="sex" width="60%" />
       <el-table-column label="联系方式" sortable prop="phone" />
-      <el-table-column label="地址" sortable prop="location" min-width="140%" />
-      <el-table-column align="center" label="操作" min-width="100%">
+      <el-table-column label="邮箱地址" sortable prop="email" min-width="80%" />
+      <el-table-column label="地址" sortable prop="address" min-width="140%" />
+      <el-table-column align="center" label="操作" min-width="130">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">
             编辑明细
@@ -85,12 +91,12 @@ export default {
       postData: "", //传递数据
       customers: [
         {
-          id: "1",
+          idCard: "1",
           name: "1",
           sex: "1",
-          age: "1",
           phone: "1",
-          location: "1",
+          address: "1",
+          email: "1",
         },
       ],
       ruleForm: {
@@ -103,6 +109,7 @@ export default {
       },
       query: {
         name: "",
+        role: 1, //普通客户
         currentPage: 1,
         pageSize: 10,
       },
@@ -118,13 +125,15 @@ export default {
   methods: {
     //获取列表数据
     getData() {
-      this.loading = true;
-      this.$axios("/customer/list", {
+      this.$axios("/user/list", {
         params: this.query,
       }).then((resp) => {
-        if (resp.data.code == 0) {
-          this.pagination = resp.data.data;
-          this.customers = this.pagination.data;
+        if (resp.data.code == 200) {
+          this.pagination.currentPage = resp.data.data.current;
+          this.pagination.pageSize = resp.data.data.size;
+          this.pagination.total = resp.data.data.total;
+          this.customers = resp.data.data.records;
+          console.log(customers);
         } else {
           this.pagination = {};
           this.customers = [];
@@ -228,7 +237,7 @@ export default {
     },
   },
   mounted() {
-    // this.getData();
+    this.getData();
   },
 };
 </script>
