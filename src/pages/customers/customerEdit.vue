@@ -45,8 +45,8 @@
               </el-form-item>
             </el-row>
             <el-row>
-              <el-form-item label="地址" prop="location">
-                <el-input v-model="ruleForm.location" />
+              <el-form-item label="地址" prop="address">
+                <el-input v-model="ruleForm.address" />
               </el-form-item>
             </el-row>
             <el-form-item>
@@ -115,11 +115,12 @@ export default {
       //表单数据
       ruleForm: {
         id: "",
-        name: "",
-        sex: "",
-        age: "",
-        phone: "",
-        location: "",
+        idCard: "1",
+        name: "1",
+        sex: "1",
+        phone: "1",
+        address: "1",
+        email: "1",
       },
       rules: {
         name: [
@@ -184,7 +185,8 @@ export default {
   },
 
   mounted() {
-    // var postData = sessionStorage.getItem("postData");
+    var customerData = sessionStorage.getItem("customerData");
+    this.ruleForm = customerData;
     // this.ruleForm = this.$store.state.business.staff;
     // console.log(this.$store.state);
   },

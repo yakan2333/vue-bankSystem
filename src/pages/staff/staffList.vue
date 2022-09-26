@@ -34,6 +34,7 @@
       v-loading="loading"
       :data="employees"
       style="width: 100%"
+      size="small"
       stripe
       border
       :header-cell-style="{ background: '#409EFF', color: '#FFFFFF' }"
@@ -43,9 +44,9 @@
       <!--根据查询改-->
       <el-table-column label="职工号" sortable prop="id" min-width="60%" />
       <el-table-column label="员工名称" sortable prop="name" min-width="60%" />
-      <el-table-column label="性别" sortable prop="sex" />
+      <el-table-column label="性别" sortable prop="sex" min-width="50%" />
       <el-table-column label="联系方式" sortable prop="phone" />
-      <el-table-column label="邮箱" sortable prop="email" />
+      <el-table-column label="邮箱" sortable prop="email" min-width="100%" />
       <el-table-column label="地址" sortable prop="address" min-width="140%" />
       <el-table-column align="center" label="操作" min-width="130">
         <template slot-scope="scope">

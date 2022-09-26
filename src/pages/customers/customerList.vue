@@ -34,6 +34,7 @@
       v-loading="loading"
       :data="customers"
       style="width: 100%"
+      size="small"
       stripe
       border
       :header-cell-style="{ background: '#409EFF', color: '#FFFFFF' }"
@@ -48,9 +49,14 @@
         min-width="100%"
       />
       <el-table-column label="客户名称" sortable prop="name" />
-      <el-table-column label="性别" sortable prop="sex" width="60%" />
+      <el-table-column label="性别" sortable prop="sex" min-width="50%" />
       <el-table-column label="联系方式" sortable prop="phone" />
-      <el-table-column label="邮箱地址" sortable prop="email" min-width="80%" />
+      <el-table-column
+        label="邮箱地址"
+        sortable
+        prop="email"
+        min-width="100%"
+      />
       <el-table-column label="地址" sortable prop="address" min-width="140%" />
       <el-table-column align="center" label="操作" min-width="130">
         <template slot-scope="scope">
@@ -99,14 +105,6 @@ export default {
           email: "1",
         },
       ],
-      ruleForm: {
-        id: "",
-        name: "",
-        sex: "",
-        age: "",
-        phone: "",
-        location: "",
-      },
       query: {
         name: "",
         role: 1, //普通客户
@@ -229,8 +227,8 @@ export default {
     },
     //修改
     handleEdit(row) {
-      this.postData = JSON.stringify(row);
-      // sessionStorage.setItem("postData", this.postData);
+      this.customerData = JSON.stringify(row);
+      sessionStorage.setItem("customerData", this.customerData);
       // this.$bus.$emit("staffData", this.postData);
       // this.$store.commit("business/EDIT_STAFF", this.postData);
       this.$router.push("customerEdit");
