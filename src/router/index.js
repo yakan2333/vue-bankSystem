@@ -139,7 +139,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/appointment/index'),
     meta: {
       title: '预约服务',
-      icon: 'el-icon-setting'
+      icon: 'el-icon-date'
     }
   }]
 },
@@ -191,7 +191,7 @@ export const constantRoutes = [{
   name: 'myAccount',
   meta: {
     title: '我的账户',
-    icon: 'el-icon-user-solid'
+    icon: 'el-icon-house'
   },
   children: [{
     path: 'accountList',
@@ -199,7 +199,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/myAccount/accountList'),
     meta: {
       title: '账户信息',
-      icon: 'el-icon-user'
+      icon: 'el-icon-monitor'
     },
   },
   {
@@ -208,7 +208,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/myAccount/myFundList'),
     meta: {
       title: '我的基金',
-      icon: 'el-icon-plus'
+      icon: 'el-icon-data-analysis'
     }
   }
   ]
