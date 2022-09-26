@@ -3,39 +3,51 @@
     <el-container>
       <el-header height="150px">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="户名">
-            <el-input v-model="formInline.user" placeholder="姓名"></el-input>
-          </el-form-item>
-          <el-form-item label="账号">
-            <el-input
-              v-model="formInline.user"
-              placeholder="8888888888888888"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="danger" icon="el-icon-delete">
-              注销此卡
-            </el-button>
-          </el-form-item>
+          <el-col :span="8">
+            <el-form-item label="户名">
+              <el-input v-model="formInline.user" placeholder="姓名"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="账号">
+              <el-input
+                v-model="formInline.user"
+                placeholder="8888888888888888"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="6">
+            <el-form-item>
+              <el-button type="danger" icon="el-icon-delete">
+                注销此卡
+              </el-button>
+            </el-form-item></el-col
+          >
         </el-form>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="币种">
-            <el-select v-model="formInline.region" placeholder="人民币">
-              <el-option label="人民币" value="shanghai"></el-option>
-              <el-option label="美元" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="激活日期">
-            <el-input v-model="formInline.date" placeholder=""></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="primary"
-              icon="el-icon-s-operation"
-              @click="onChange"
-              >切换显示</el-button
-            >
-          </el-form-item>
+          <el-col :span="8">
+            <el-form-item label="币种">
+              <el-select v-model="formInline.region" placeholder="人民币">
+                <el-option label="人民币" value="shanghai"></el-option>
+                <el-option label="美元" value="beijing"></el-option>
+              </el-select> </el-form-item
+          ></el-col>
+          <el-col :span="8">
+            <el-form-item label="激活日期">
+              <el-input
+                v-model="formInline.date"
+                placeholder=""
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="6">
+            <el-form-item>
+              <el-button
+                type="primary"
+                icon="el-icon-s-operation"
+                @click="onChange"
+                >切换显示</el-button
+              >
+            </el-form-item></el-col
+          >
         </el-form>
       </el-header>
       <el-main>
