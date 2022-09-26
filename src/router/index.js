@@ -203,12 +203,21 @@ export const constantRoutes = [{
     },
   },
   {
+    path: 'transfer',
+    name: 'transfer',
+    component: () => import('@/pages/myAccount/transfer'),
+    meta: {
+      title: '转账业务',
+      icon: 'el-icon-data-analysis'
+    }
+  },
+  {
     path: 'myFundList',
     name: 'myFundList',
     component: () => import('@/pages/myAccount/myFundList'),
     meta: {
       title: '我的基金',
-      icon: 'el-icon-data-analysis'
+      icon: 'el-icon-s-ticket'
     }
   }
   ]
