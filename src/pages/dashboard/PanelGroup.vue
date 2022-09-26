@@ -33,7 +33,7 @@
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
+      <div class="card-panel" @click="handleSetLineChartData('purchases')">
         <div class="card-panel-icon-wrapper icon-money">
           <i class="el-icon-coin" id="card-panel-icon"></i>
         </div>
@@ -42,14 +42,14 @@
           <count-to
             :start-val="0"
             :end-val="8888"
-            :duration="3000"
+            :duration="2000"
             class="card-panel-num"
           />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
+      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
         <div class="card-panel-icon-wrapper icon-shopping">
           <i class="el-icon-data-line" id="card-panel-icon"></i>
         </div>
@@ -58,7 +58,7 @@
           <count-to
             :start-val="0"
             :end-val="6666"
-            :duration="3000"
+            :duration="2500"
             class="card-panel-num"
           />
         </div>

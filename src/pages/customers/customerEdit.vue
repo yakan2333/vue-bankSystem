@@ -30,18 +30,18 @@
               </el-form-item>
             </el-row>
             <el-row>
-              <el-form-item label="民族" prop="phone">
-                <el-input v-model="ruleForm.phone" />
-              </el-form-item>
-            </el-row>
-            <el-row>
-              <el-form-item label="身份证号" prop="phone">
-                <el-input v-model="ruleForm.phone" />
+              <el-form-item label="身份证号" prop="idCard">
+                <el-input v-model="ruleForm.idCard" />
               </el-form-item>
             </el-row>
             <el-row>
               <el-form-item label="联系方式" prop="phone">
                 <el-input v-model="ruleForm.phone" />
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="邮件" prop="email">
+                <el-input v-model="ruleForm.email" />
               </el-form-item>
             </el-row>
             <el-row>
@@ -122,6 +122,7 @@ export default {
         address: "1",
         email: "1",
       },
+      bankCard: [],
       rules: {
         name: [
           {
@@ -182,11 +183,30 @@ export default {
     handleDetail() {
       this.$router.push({ name: "cardDetail" });
     },
+    //获取列表数据
+    getData() {
+      this.$axios("/user/card_info", {
+        params: this.ruleForm.id,
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          this.bankCard = resp.data.data.current;
+          this.pagination.pageSize = resp.data.data.size;
+          this.pagination.total = resp.data.data.total;
+          this.customers = resp.data.data.records;
+          console.log(customers);
+        } else {
+          this.pagination = {};
+          this.customers = [];
+        }
+      });
+      this.loading = false;
+    },
   },
 
   mounted() {
     var customerData = sessionStorage.getItem("customerData");
     this.ruleForm = JSON.parse(customerData);
+
     console.log(this.ruleForm);
     // this.ruleForm = this.$store.state.business.staff;
     // console.log(this.$store.state);
