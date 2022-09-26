@@ -32,7 +32,7 @@
 
     <el-table
       v-loading="loading"
-      :data="employees"
+      :data="customers"
       style="width: 100%"
       stripe
       border
@@ -83,7 +83,7 @@ export default {
     return {
       loading: false,
       postData: "", //传递数据
-      employees: [
+      customers: [
         {
           id: "1",
           name: "1",
@@ -124,10 +124,10 @@ export default {
       }).then((resp) => {
         if (resp.data.code == 0) {
           this.pagination = resp.data.data;
-          this.employees = this.pagination.data;
+          this.customers = this.pagination.data;
         } else {
           this.pagination = {};
-          this.employees = [];
+          this.customers = [];
         }
       });
       this.loading = false;

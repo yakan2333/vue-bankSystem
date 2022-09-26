@@ -125,7 +125,7 @@ export default {
       account: "88888888888",
       ruleForm: {
         amount: 10,
-        validCode: "23333",
+        validCode: "",
       },
       FundData: {
         cumulativeEquity: 1.8698,

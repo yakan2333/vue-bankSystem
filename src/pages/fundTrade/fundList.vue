@@ -11,7 +11,7 @@
         </el-input>
       </el-col>
       <el-col :span="5">
-        <el-select v-model="fund.type" placeholder="请选择基金类型">
+        <el-select v-model="query.type" placeholder="请选择基金类型">
           <el-option label="股票型" value="股票型"></el-option>
           <el-option label="混合型" value="混合型"></el-option>
           <el-option label="债券型" value="债券型"></el-option>
@@ -252,6 +252,7 @@ export default {
     //重置
     resetForm() {
       this.query.name = "";
+      this.query.type = "";
       this.query.pageSize = 10;
       this.query.currentPage = 1;
       this.getData();

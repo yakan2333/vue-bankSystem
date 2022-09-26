@@ -168,6 +168,37 @@ export const constantRoutes = [{
   ]
 },
 
+// 个人账户管理
+{
+  path: '/myAccount',
+  redirect: '/myAccount/accountList',
+  component: Layout,
+  name: 'myAccount',
+  meta: {
+    title: '我的账户',
+    icon: 'el-icon-user-solid'
+  },
+  children: [{
+    path: 'accountList',
+    name: 'accountList',
+    component: () => import('@/pages/myAccount/accountList'),
+    meta: {
+      title: '账户信息',
+      icon: 'el-icon-user'
+    },
+  },
+  {
+    path: 'myFundList',
+    name: 'myFundList',
+    component: () => import('@/pages/myAccount/myFundList'),
+    meta: {
+      title: '我的基金',
+      icon: 'el-icon-plus'
+    }
+  }
+  ]
+},
+
 // 机构信息设置
 {
   path: '/configuration',
