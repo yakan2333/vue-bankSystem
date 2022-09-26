@@ -114,7 +114,7 @@ export default {
     return {
       //表单数据
       ruleForm: {
-        id: "",
+        id: "1",
         idCard: "1",
         name: "1",
         sex: "1",
@@ -184,30 +184,25 @@ export default {
       this.$router.push({ name: "cardDetail" });
     },
     //获取列表数据
-    getData() {
-      this.$axios("/user/card_info", {
+    getCardData() {
+      this.$axios("/card_info", {
         params: this.ruleForm.id,
       }).then((resp) => {
         if (resp.data.code == 200) {
-          this.bankCard = resp.data.data.current;
-          this.pagination.pageSize = resp.data.data.size;
-          this.pagination.total = resp.data.data.total;
-          this.customers = resp.data.data.records;
-          console.log(customers);
+          this.bankCard = resp.data.data;
+          console.log(bankCard);
         } else {
-          this.pagination = {};
-          this.customers = [];
+          this.bankCard = [];
         }
       });
-      this.loading = false;
     },
   },
 
   mounted() {
     var customerData = sessionStorage.getItem("customerData");
     this.ruleForm = JSON.parse(customerData);
-
     console.log(this.ruleForm);
+    this.getCardData();
     // this.ruleForm = this.$store.state.business.staff;
     // console.log(this.$store.state);
   },
