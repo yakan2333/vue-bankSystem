@@ -2,16 +2,16 @@
   <div class="container">
     <el-container>
       <el-header height="150px">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" :model="cardInfo" class="demo-form-inline">
           <el-col :span="8">
             <el-form-item label="户名">
-              <el-input v-model="formInline.user" placeholder="姓名"></el-input>
+              <el-input v-model="cardInfo.name" placeholder="姓名"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="账号">
               <el-input
-                v-model="formInline.user"
+                v-model="cardInfo.id"
                 placeholder="8888888888888888"
               ></el-input> </el-form-item
           ></el-col>
@@ -23,10 +23,10 @@
             </el-form-item></el-col
           >
         </el-form>
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" :model="cardInfo" class="demo-form-inline">
           <el-col :span="8">
             <el-form-item label="币种">
-              <el-select v-model="formInline.region" placeholder="人民币">
+              <el-select v-model="cardInfo.type" placeholder="人民币">
                 <el-option label="人民币" value="shanghai"></el-option>
                 <el-option label="美元" value="beijing"></el-option>
               </el-select> </el-form-item
@@ -34,7 +34,7 @@
           <el-col :span="8">
             <el-form-item label="激活日期">
               <el-input
-                v-model="formInline.date"
+                v-model="cardInfo.date"
                 placeholder=""
               ></el-input> </el-form-item
           ></el-col>
@@ -106,9 +106,10 @@ export default {
     return {
       total: 100,
       FormStyles: true,
-      formInline: {
-        user: "",
-        region: "",
+      cardInfo: {
+        id: "",
+        name: "",
+        type: "人民币",
         date: "",
       },
       tableData: [
@@ -151,12 +152,22 @@ export default {
           counterParty: "秋名山老司机",
         },
       ],
+      cardData: [],
+      customerData: [],
     };
   },
   methods: {
     onChange() {
       this.FormStyles = !this.FormStyles;
     },
+  },
+  mounted() {
+    let cardData = sessionStorage.getItem("cardData");
+    let customerData = sessionStorage.getItem("customerData");
+    this.customerData = JSON.parse(customerData);
+    this.cardData = JSON.parse(cardData);
+    this.cardInfo.id = cardData.cardNo;
+    this.cardInfo.name = customerData.name;
   },
 };
 </script>
