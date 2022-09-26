@@ -161,9 +161,8 @@ export default {
     },
     //查看明细
     handleDetail(card) {
-      sessionStorage.setItem("cardData", card);
-      sessionStorage.setItem("customerData", this.ruleForm);
-      this.$router.push({ name: "cardDetail" });
+      sessionStorage.setItem("cardData", JSON.stringify(card));
+      this.$router.push("cardDetail");
     },
     //获取列表数据
     getCardData() {

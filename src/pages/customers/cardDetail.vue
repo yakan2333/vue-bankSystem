@@ -2,15 +2,20 @@
   <div class="container">
     <el-container>
       <el-header height="150px">
-        <el-form :inline="true" :model="cardInfo" class="demo-form-inline">
+        <el-form :inline="true" class="demo-form-inline">
           <el-col :span="8">
             <el-form-item label="户名">
-              <el-input v-model="cardInfo.name" placeholder="姓名"></el-input>
+              <el-input
+                v-model="cardInfo.name"
+                placeholder="姓名"
+                readonly
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="账号">
               <el-input
+                readonly
                 v-model="cardInfo.id"
                 placeholder="8888888888888888"
               ></el-input> </el-form-item
@@ -23,7 +28,7 @@
             </el-form-item></el-col
           >
         </el-form>
-        <el-form :inline="true" :model="cardInfo" class="demo-form-inline">
+        <el-form :inline="true" class="demo-form-inline">
           <el-col :span="8">
             <el-form-item label="币种">
               <el-select v-model="cardInfo.type" placeholder="人民币">
@@ -34,6 +39,7 @@
           <el-col :span="8">
             <el-form-item label="激活日期">
               <el-input
+                readonly
                 v-model="cardInfo.date"
                 placeholder=""
               ></el-input> </el-form-item
@@ -110,7 +116,7 @@ export default {
         id: "",
         name: "",
         type: "人民币",
-        date: "",
+        date: "2019-08-01",
       },
       tableData: [
         {
@@ -163,11 +169,11 @@ export default {
   },
   mounted() {
     let cardData = sessionStorage.getItem("cardData");
+    this.cardData = JSON.parse(cardData);
     let customerData = sessionStorage.getItem("customerData");
     this.customerData = JSON.parse(customerData);
-    this.cardData = JSON.parse(cardData);
-    this.cardInfo.id = cardData.cardNo;
-    this.cardInfo.name = customerData.name;
+    this.cardInfo.id = this.cardData.cardNo;
+    this.cardInfo.name = this.customerData.name;
   },
 };
 </script>
