@@ -131,13 +131,11 @@ export default {
           this.pagination.pageSize = resp.data.data.size;
           this.pagination.total = resp.data.data.total;
           this.customers = resp.data.data.records;
-          console.log(customers);
         } else {
           this.pagination = {};
           this.customers = [];
         }
       });
-      this.loading = false;
     },
     //添加
     handleAdd() {

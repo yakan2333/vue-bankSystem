@@ -60,47 +60,24 @@
       </el-aside>
       <el-main>
         <div class="cardList">
-          <el-card class="box-card" :body-style="{ padding: '0px' }">
+          <el-card
+            v-for="(card, index) in bankCards"
+            :key="card.id"
+            class="box-card"
+            :body-style="{ padding: '0px' }"
+          >
             <div slot="header" class="clearfix">
-              <span>银行卡1</span>
-              <span class="card-id">8888 8888 8888 8888</span>
+              <span>银行卡{{ index + 1 }}</span>
+              <span class="card-id">{{ card.cardNo }}</span>
               <el-button
                 style="float: right; padding: 3px 0"
                 type="text"
-                @click.native="handleDetail"
+                @click.native="handleDetail(card)"
                 >查看明细</el-button
               >
             </div>
             <img src="./images/card_part.png" alt="" class="card-img" />
-            <div class="text item">余额总计:6666.66元</div>
-          </el-card>
-          <el-card class="box-card" :body-style="{ padding: '0px' }">
-            <div slot="header" class="clearfix">
-              <span>银行卡1</span>
-              <span class="card-id">8888 8888 8888 8888</span>
-              <el-button
-                style="float: right; padding: 3px 0"
-                type="text"
-                @click.native="handleDetail"
-                >查看明细</el-button
-              >
-            </div>
-            <img src="./images/card_part.png" alt="" class="card-img" />
-            <div class="text item">余额总计:6666.66元</div>
-          </el-card>
-          <el-card class="box-card" :body-style="{ padding: '0px' }">
-            <div slot="header" class="clearfix">
-              <span>银行卡1</span>
-              <span class="card-id">8888 8888 8888 8888</span>
-              <el-button
-                style="float: right; padding: 3px 0"
-                type="text"
-                @click.native="handleDetail"
-                >查看明细</el-button
-              >
-            </div>
-            <img src="./images/card_part.png" alt="" class="card-img" />
-            <div class="text item">余额总计:6666.66元</div>
+            <div class="text item">余额总计:{{ card.money }}元</div>
           </el-card>
         </div>
       </el-main>
@@ -122,7 +99,10 @@ export default {
         address: "1",
         email: "1",
       },
-      bankCard: [],
+      query: {
+        userId: 1,
+      },
+      bankCards: [],
       rules: {
         name: [
           {
@@ -180,19 +160,20 @@ export default {
       this.$refs[formName].resetFields();
     },
     //查看明细
-    handleDetail() {
+    handleDetail(card) {
+      sessionStorage.setItem("cardData", card);
+      sessionStorage.setItem("customerData", this.ruleForm);
       this.$router.push({ name: "cardDetail" });
     },
     //获取列表数据
     getCardData() {
       this.$axios("/card_info", {
-        params: this.ruleForm.id,
+        params: { userId: this.query.userId },
       }).then((resp) => {
         if (resp.data.code == 200) {
-          this.bankCard = resp.data.data;
-          console.log(bankCard);
+          this.bankCards = resp.data.data.data;
         } else {
-          this.bankCard = [];
+          this.bankCards = [];
         }
       });
     },
@@ -201,7 +182,6 @@ export default {
   mounted() {
     var customerData = sessionStorage.getItem("customerData");
     this.ruleForm = JSON.parse(customerData);
-    console.log(this.ruleForm);
     this.getCardData();
     // this.ruleForm = this.$store.state.business.staff;
     // console.log(this.$store.state);
