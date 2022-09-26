@@ -186,7 +186,8 @@ export default {
 
   mounted() {
     var customerData = sessionStorage.getItem("customerData");
-    this.ruleForm = customerData;
+    this.ruleForm = JSON.parse(customerData);
+    console.log(this.ruleForm);
     // this.ruleForm = this.$store.state.business.staff;
     // console.log(this.$store.state);
   },
