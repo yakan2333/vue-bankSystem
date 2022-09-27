@@ -2,20 +2,20 @@ var userPointLat, userPointLng;
 var userPoint;
 var map;
 var iconSize = { w: 30, h: 30, l: 0, t: 0, x: 6, lb: 5 }
-var userMarkerInfo = { id: "sb", url: "img/test.png", title: "华少", content: "您的位置", lng: 0, lat: 0 };
+var userMarkerInfo = { id: "sb", url: "../img/test.png", title: "华少", content: "您的位置", lng: 0, lat: 0 };
 
 var markerInfoList = [
     {
-        id: "10001", url: "img/flash.png", title: "网点1", content: "当前网点预约人数", lng: 115.83069930916683, lat: 28.67036966457041
+        id: "10001", url: "../img/flash.png", title: "网点1", content: "当前网点预约人数", lng: 115.83069930916683, lat: 28.67036966457041
     },
     {
-        id: "10002", url: "img/flash.png", title: "网点2", content: "当前网点预约人数", lng: 115.91657637048775, lat: 28.688846961648085
+        id: "10002", url: "../img/flash.png", title: "网点2", content: "当前网点预约人数", lng: 115.91657637048775, lat: 28.688846961648085
     }
 ];
 
 var markerList = new Array();
 
-function init() {
+export function init() {
     initUserPoint();
     setMapEvent();
     addMapControl();
