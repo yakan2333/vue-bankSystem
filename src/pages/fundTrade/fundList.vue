@@ -16,7 +16,6 @@
           <el-option label="混合型" value="混合型"></el-option>
           <el-option label="债券型" value="债券型"></el-option>
           <el-option label="QDII" value="QDII"></el-option>
-          <el-option label="货币型" value="货币型"></el-option>
         </el-select>
       </el-col>
       <el-col :span="6" align="center">
@@ -171,7 +170,7 @@ export default {
         if (resp.data.code == 200) {
           this.pagination.currentPage = resp.data.data.current;
           this.pagination.pageSize = resp.data.data.size;
-          this.pagination.total = resp.data.data.total * 101;
+          this.pagination.total = resp.data.data.total;
           this.fund = resp.data.data.records;
         } else {
           this.pagination = {};
