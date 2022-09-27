@@ -8,7 +8,9 @@
           <template slot="title"
             ><el-tag>{{ fundDetail.type }}</el-tag></template
           >
-          <template slot="extra"> 004666 ，长城基金管理有限公司 </template>
+          <template slot="extra">
+            {{ fundDetail.num }} ，{{ fundDetail.name }}管理有限公司
+          </template>
           <el-descriptions-item label="单位净值">{{
             fundDetail.cumulativeEquity
           }}</el-descriptions-item>
@@ -231,6 +233,9 @@ export default {
     },
   },
   mounted() {
+    let fundData = sessionStorage.getItem("postFundData");
+    this.fundDetail = JSON.parse(fundData);
+    console.log(this.fundDetail);
     this.drawChart1();
   },
 };

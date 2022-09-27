@@ -128,8 +128,38 @@ export const constantRoutes = [{
   ]
 },
 
-// 预约服务
+// 叫号服务
+{
+  path: '/makeCall',
+  component: Layout,
+  meta: {
+    title: '叫号服务',
+    icon: 'el-icon-date'
+  },
+  children: [{
+    path: 'index',
+    name: 'makeCall',
+    component: () => import('@/pages/makeCall/index'),
+    meta: {
+      title: '叫号服务',
+      icon: 'el-icon-date'
+    }
+  },
+  {
+    path: 'menu2',
+    name: 'menu2',
+    component: () => import('@/pages/makeCall/menu2'),
+    meta: {
+      title: '备用',
+      icon: 'el-icon-date'
+    }
+  },
 
+  ]
+},
+
+
+// 预约服务
 {
   path: '/appointment',
   component: Layout,
