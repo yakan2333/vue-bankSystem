@@ -22,7 +22,11 @@
           ></el-col>
           <el-col :span="6">
             <el-form-item>
-              <el-button type="danger" icon="el-icon-delete">
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                @click="handleDelete"
+              >
                 注销此卡
               </el-button>
             </el-form-item></el-col
@@ -165,6 +169,23 @@ export default {
   methods: {
     onChange() {
       this.FormStyles = !this.FormStyles;
+    },
+    handleDelete() {
+      //确认删除
+      this.$confirm("此操作将永久注销此卡, 是否确定?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: true,
+      })
+        .then(() => {
+          //删除
+          console.log("执行删除操作中...");
+          this.$router.push("customerEdit");
+        })
+        .catch(() => {
+          this.array = [];
+        });
     },
   },
   mounted() {

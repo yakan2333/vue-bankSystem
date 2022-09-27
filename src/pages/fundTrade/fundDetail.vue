@@ -228,7 +228,7 @@ export default {
     },
     // 跳转到购买页面
     handToBuy() {
-      sessionStorage.setItem("postFundData", this.fundDetail);
+      sessionStorage.setItem("amountData", this.num);
       this.$router.push("fundPurchase");
     },
   },

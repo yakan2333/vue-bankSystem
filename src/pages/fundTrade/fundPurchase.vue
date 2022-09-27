@@ -180,7 +180,6 @@ export default {
     getVerify() {
       let v = Math.random();
       this.imgSrc = "http://localhost:8080/api/getVerify?" + v;
-      console.log("验证码是" + v);
     },
     //提交
     submitForm(formName) {
@@ -192,9 +191,9 @@ export default {
               if (resp.data.code == 0) {
                 this.$message({
                   type: "success",
-                  message: "添加成功!",
+                  message: "购买成功!",
                 });
-                this.$router.push("staffList");
+                this.$router.push("fundList");
               }
             });
         }
@@ -205,7 +204,9 @@ export default {
     },
   },
   mounted() {
-    // this.FundData = sessionStorage.getItem("postFundData");
+    let postFundData = sessionStorage.getItem("postFundData");
+    this.FundData = JSON.parse(postFundData);
+    this.ruleForm.amount = sessionStorage.getItem("amountData");
     this.getVerify();
   },
 };

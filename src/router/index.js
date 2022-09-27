@@ -134,7 +134,7 @@ export const constantRoutes = [{
   component: Layout,
   meta: {
     title: '叫号服务',
-    icon: 'el-icon-date'
+    icon: 'el-icon-message-solid'
   },
   children: [{
     path: 'index',
@@ -142,7 +142,7 @@ export const constantRoutes = [{
     component: () => import('@/pages/makeCall/index'),
     meta: {
       title: '叫号服务',
-      icon: 'el-icon-date'
+      icon: 'el-icon-bell'
     }
   },
   {
@@ -163,6 +163,10 @@ export const constantRoutes = [{
 {
   path: '/appointment',
   component: Layout,
+  meta: {
+    title: '预约服务',
+    icon: 'el-icon-date'
+  },
   children: [{
     path: 'index',
     name: 'appointment',
