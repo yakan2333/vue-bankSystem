@@ -58,13 +58,19 @@ export default {
        * 取号按钮 点击事件
        */
 
-      this.$message({
-        message: '你已经成功取号，当前号码为：8号',
-        type: 'success',
-        offset: 400
-      });
+      this.$confirm('确定取号【' + this.currentNo + '号】', '取号', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          message: '你已经成功取号，当前号码为：8号',
+          type: 'success',
+          offset: 400
+        });
 
-      this.currentNo = 8
+        this.currentNo = 8 // 当前号码更改
+      }).catch(() => {});
     }
   },
 
