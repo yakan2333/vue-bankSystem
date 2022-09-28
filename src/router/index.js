@@ -127,7 +127,6 @@ export const constantRoutes = [{
   },
   ]
 },
-
 // 叫号服务
 {
   path: '/makeCall',
@@ -157,8 +156,6 @@ export const constantRoutes = [{
 
   ]
 },
-
-
 // 预约服务
 {
   path: '/appointment',
@@ -225,7 +222,6 @@ export const constantRoutes = [{
   },
   ]
 },
-
 // 个人账户管理
 {
   path: '/myAccount',
@@ -265,22 +261,6 @@ export const constantRoutes = [{
   }
   ]
 },
-
-// 机构信息设置
-{
-  path: '/configuration',
-  component: Layout,
-  children: [{
-    path: 'index',
-    name: 'configuration',
-    component: () => import('@/pages/configuration/index'),
-    meta: {
-      title: '机构参数配置',
-      icon: 'el-icon-office-building'
-    }
-  }]
-},
-
 // 个人信息设置
 {
   path: '/setting',
@@ -302,12 +282,23 @@ export const constantRoutes = [{
   hidden: true
 }
 ]
-
+export const adminRoutes = [// 机构信息设置
+  {
+    path: '/configuration',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'configuration',
+      component: () => import('@/pages/configuration/index'),
+      meta: {
+        title: '机构参数配置',
+        icon: 'el-icon-office-building'
+      }
+    }]
+  },
+]
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({
-    y: 0
-  }),
+
   routes: constantRoutes
 })
 
@@ -329,4 +320,5 @@ export function resetRouter() {
 //     }
 //   }
 // })
+
 export default router

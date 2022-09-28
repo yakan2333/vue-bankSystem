@@ -70,7 +70,7 @@
 
 <script>
 import { validUsername } from "@/utils/validate";
-
+import { adminRoutes } from "@/router";
 export default {
   name: "Login",
   data() {
@@ -146,6 +146,7 @@ export default {
     //   });
     // },
     handleLogin() {
+      this.$router.addRoutes(adminRoutes);
       this.$router.push({ path: "/home" });
     },
   },
