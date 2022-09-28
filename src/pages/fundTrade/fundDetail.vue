@@ -98,7 +98,7 @@ export default {
         cumulativeEquity: 1.8698,
         currency: "人民币",
         galaxyRating: 5,
-        historyEquity: [],
+        historyEquity: "",
         id: 1,
         latestEquity: 1.8698,
         name: "长城久嘉创新",
@@ -161,6 +161,8 @@ export default {
         ["2000-07-18", 88],
         ["2000-07-19", 77],
       ],
+      dateList: [],
+      valueList: [],
     };
   },
   methods: {
@@ -188,12 +190,12 @@ export default {
       //2.初始化
       this.chart = echarts.init(this.$refs.chart);
       //3.配置数据
-      const dateList = this.data1.map(function (item) {
-        return item[0];
-      });
-      const valueList = this.data1.map(function (item) {
-        return item[1];
-      });
+      // const dateList = this.data1.map(function (item) {
+      //   return item[0];
+      // });
+      // const valueList = this.data1.map(function (item) {
+      //   return item[1];
+      // });
       let option = {
         // Make gradient line here
         visualMap: {
@@ -211,15 +213,17 @@ export default {
           trigger: "axis",
         },
         xAxis: {
-          data: dateList,
+          data: this.dateList,
         },
-        yAxis: {},
+        yAxis: {
+          scale: true,
+        },
         grid: {},
         series: [
           {
             type: "line",
             showSymbol: false,
-            data: valueList,
+            data: this.valueList,
           },
         ],
       };
@@ -231,12 +235,30 @@ export default {
       sessionStorage.setItem("amountData", this.num);
       this.$router.push("fundPurchase");
     },
+    // 获取图标数组
+    getChartData() {
+      this.$axios("/equity-histoty", {
+        params: {
+          num: this.fundDetail.num,
+          historyEquity: this.fundDetail.historyEquity,
+        },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          this.dateList = resp.data.data.time;
+          this.valueList = resp.data.data.equity;
+          this.drawChart1();
+        } else {
+          this.dateList = [];
+          this.valueList = [];
+        }
+      });
+    },
   },
   mounted() {
     let fundData = sessionStorage.getItem("postFundData");
     this.fundDetail = JSON.parse(fundData);
     console.log(this.fundDetail);
-    this.drawChart1();
+    this.getChartData();
   },
 };
 </script>
