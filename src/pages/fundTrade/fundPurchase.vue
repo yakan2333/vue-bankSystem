@@ -170,6 +170,13 @@ export default {
             trigger: "blur",
           },
         ],
+        validCode: [
+          {
+            required: true,
+            message: "请输入验证码",
+            trigger: "blur",
+          },
+        ],
       },
     };
   },
@@ -183,21 +190,73 @@ export default {
     },
     //提交
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$axios
-            .post("/staff/save", this.$qs.stringify(this.ruleForm))
-            .then((resp) => {
-              if (resp.data.code == 0) {
-                this.$message({
-                  type: "success",
-                  message: "购买成功!",
-                });
-                this.$router.push("fundList");
-              }
-            });
+      if (this.checkList.length == 3) {
+        console.log("go!");
+        this.getChartData();
+      } else {
+        this.$message({
+          type: "warning",
+          message: "请阅读并同意所有协议!",
+        });
+      }
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     this.$axios
+      //       .post("/staff/save", this.$qs.stringify(this.ruleForm))
+      //       .then((resp) => {
+      //         if (resp.data.code == 0) {
+      //           this.$message({
+      //             type: "success",
+      //             message: "购买成功!",
+      //           });
+      //           this.$router.push("fundList");
+      //         }
+      //       });
+      //   }
+      // });
+    },
+    getChartData() {
+      this.$axios("/checkVerify", {
+        params: {
+          code: this.ruleForm.validCode,
+        },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          this.OpenCheckBox();
+        } else {
+          this.$alert("验证码错误，请重新输入！", "警告", {
+            confirmButtonText: "确定",
+            type: "warning",
+          });
         }
       });
+    },
+    OpenCheckBox() {
+      this.$prompt("确认登录密码", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+      })
+        .then(({ value }) => {
+          if (value == "123456") {
+            this.$message({
+              type: "success",
+              message: "登陆成功",
+            });
+            // this.$router.push({ name: "myFundList" });
+            this.$router.push({ name: "backInfo" });
+          } else {
+            this.$message({
+              type: "error",
+              message: "密码错误",
+            });
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消输入",
+          });
+        });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

@@ -214,6 +214,15 @@ export const constantRoutes = [{
     },
     hidden: true,
   },
+  {
+    path: 'backInfo',
+    name: 'backInfo',
+    component: () => import('@/pages/fundTrade/backInfo'),
+    meta: {
+      title: '购买成功',
+    },
+    hidden: true,
+  },
   ]
 },
 
