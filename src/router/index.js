@@ -298,7 +298,8 @@ export const adminRoutes = [// 机构信息设置
   },
 ]
 const createRouter = () => new Router({
-
+  // mode: 'history', // require service support
+  scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
 
@@ -320,5 +321,20 @@ export function resetRouter() {
 //     }
 //   }
 // })
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  // localStorage.setItem('hasRoute', false);
+  // if (localStorage.getItem('hasRoute')) {
+
+  // } else {
+  // localStorage.setItem('hasRoute', true);
+  // }
+  // 左侧菜单组件中的路由是根据this.$router.options.routes来渲染的
+  router.addRoutes(adminRoutes);
+  router.options.routes = router.options.routes.concat(adminRoutes)
+  console.log(router);
+  next();
+})
 
 export default router

@@ -146,7 +146,6 @@ export default {
     //   });
     // },
     handleLogin() {
-      this.$router.addRoutes(adminRoutes);
       this.$router.push({ path: "/home" });
     },
   },
@@ -157,7 +156,6 @@ export default {
       this.loginForm.account = p.account;
       this.loginForm.password = p.password;
     }
-    console.log(this);
   },
 };
 </script>
