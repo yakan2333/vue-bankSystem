@@ -30,13 +30,8 @@
               </el-form-item>
             </el-row>
             <el-row>
-              <el-form-item label="民族" prop="phone">
-                <el-input v-model="ruleForm.phone" />
-              </el-form-item>
-            </el-row>
-            <el-row>
-              <el-form-item label="身份证号" prop="phone">
-                <el-input v-model="ruleForm.phone" />
+              <el-form-item label="身份证号" prop="idCard">
+                <el-input v-model="ruleForm.idCard" />
               </el-form-item>
             </el-row>
             <el-row>
@@ -45,8 +40,13 @@
               </el-form-item>
             </el-row>
             <el-row>
-              <el-form-item label="地址" prop="location">
-                <el-input v-model="ruleForm.location" />
+              <el-form-item label="邮件" prop="email">
+                <el-input v-model="ruleForm.email" />
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="地址" prop="address">
+                <el-input v-model="ruleForm.address" />
               </el-form-item>
             </el-row>
             <el-form-item>
@@ -60,47 +60,24 @@
       </el-aside>
       <el-main>
         <div class="cardList">
-          <el-card class="box-card" :body-style="{ padding: '0px' }">
+          <el-card
+            v-for="(card, index) in bankCards"
+            :key="card.id"
+            class="box-card"
+            :body-style="{ padding: '0px' }"
+          >
             <div slot="header" class="clearfix">
-              <span>银行卡1</span>
-              <span class="card-id">8888 8888 8888 8888</span>
+              <span>银行卡{{ index + 1 }}</span>
+              <span class="card-id">{{ card.cardNo }}</span>
               <el-button
                 style="float: right; padding: 3px 0"
                 type="text"
-                @click.native="handleDetail"
+                @click.native="handleDetail(card)"
                 >查看明细</el-button
               >
             </div>
             <img src="./images/card_part.png" alt="" class="card-img" />
-            <div class="text item">余额总计:6666.66元</div>
-          </el-card>
-          <el-card class="box-card" :body-style="{ padding: '0px' }">
-            <div slot="header" class="clearfix">
-              <span>银行卡1</span>
-              <span class="card-id">8888 8888 8888 8888</span>
-              <el-button
-                style="float: right; padding: 3px 0"
-                type="text"
-                @click.native="handleDetail"
-                >查看明细</el-button
-              >
-            </div>
-            <img src="./images/card_part.png" alt="" class="card-img" />
-            <div class="text item">余额总计:6666.66元</div>
-          </el-card>
-          <el-card class="box-card" :body-style="{ padding: '0px' }">
-            <div slot="header" class="clearfix">
-              <span>银行卡1</span>
-              <span class="card-id">8888 8888 8888 8888</span>
-              <el-button
-                style="float: right; padding: 3px 0"
-                type="text"
-                @click.native="handleDetail"
-                >查看明细</el-button
-              >
-            </div>
-            <img src="./images/card_part.png" alt="" class="card-img" />
-            <div class="text item">余额总计:6666.66元</div>
+            <div class="text item">余额总计:{{ card.money }}元</div>
           </el-card>
         </div>
       </el-main>
@@ -114,13 +91,18 @@ export default {
     return {
       //表单数据
       ruleForm: {
-        id: "",
-        name: "",
-        sex: "",
-        age: "",
-        phone: "",
-        location: "",
+        id: "1",
+        idCard: "1",
+        name: "1",
+        sex: "1",
+        phone: "1",
+        address: "1",
+        email: "1",
       },
+      query: {
+        userId: 1,
+      },
+      bankCards: [],
       rules: {
         name: [
           {
@@ -178,13 +160,29 @@ export default {
       this.$refs[formName].resetFields();
     },
     //查看明细
-    handleDetail() {
-      this.$router.push({ name: "cardDetail" });
+    handleDetail(card) {
+      sessionStorage.setItem("cardData", JSON.stringify(card));
+      this.$router.push("cardDetail");
+    },
+    //获取列表数据
+    getCardData() {
+      this.$axios("/card_info", {
+        params: { userId: this.query.userId },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          this.bankCards = resp.data.data.data;
+        } else {
+          this.bankCards = [];
+        }
+      });
     },
   },
 
   mounted() {
-    // var postData = sessionStorage.getItem("postData");
+    if (localStorage.getItem("user")) {
+      this.ruleForm = JSON.parse(localStorage.getItem("user"));
+    }
+    this.getCardData();
     // this.ruleForm = this.$store.state.business.staff;
     // console.log(this.$store.state);
   },

@@ -202,7 +202,16 @@ export const userRoutes = [
         title: '我的基金',
         icon: 'el-icon-s-ticket'
       }
-    }
+    },
+    {
+      path: 'cardDetail',
+      name: 'cardDetail',
+      component: () => import('@/pages/myAccount/cardDetail'),
+      meta: {
+        title: '银行卡明细',
+      },
+      hidden: true,
+    },
     ]
   },
   // 叫号服务
@@ -223,15 +232,15 @@ export const userRoutes = [
         icon: 'el-icon-bell'
       }
     },
-    {
-      path: 'menu2',
-      name: 'menu2',
-      component: () => import('@/pages/makeCall/menu2'),
-      meta: {
-        title: '备用',
-        icon: 'el-icon-date'
-      }
-    },
+      // {
+      //   path: 'menu2',
+      //   name: 'menu2',
+      //   component: () => import('@/pages/makeCall/menu2'),
+      //   meta: {
+      //     title: '备用',
+      //     icon: 'el-icon-date'
+      //   }
+      // },
 
     ]
   },

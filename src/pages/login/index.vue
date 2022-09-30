@@ -131,7 +131,7 @@ export default {
     // },
   },
   mounted() {
-    if (localStorage.getItem("user") != null) {
+    if (localStorage.getItem("user")) {
       let p = JSON.parse(localStorage.getItem("user"));
       console.log(p);
       this.loginForm.account = p.userName;
