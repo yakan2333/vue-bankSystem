@@ -168,7 +168,7 @@ export default {
     //获取列表数据
     getCardData() {
       this.$axios("/card_info", {
-        params: { userId: this.ruleForm.userId },
+        params: { userId: this.ruleForm.id },
       }).then((resp) => {
         if (resp.data.code == 200) {
           this.bankCards = resp.data.data.data;
