@@ -92,6 +92,7 @@ export default {
       //表单数据
       ruleForm: {
         id: "1",
+        userId: "",
         idCard: "1",
         name: "1",
         sex: "1",
@@ -167,7 +168,7 @@ export default {
     //获取列表数据
     getCardData() {
       this.$axios("/card_info", {
-        params: { userId: this.query.userId },
+        params: { userId: this.ruleForm.userId },
       }).then((resp) => {
         if (resp.data.code == 200) {
           this.bankCards = resp.data.data.data;

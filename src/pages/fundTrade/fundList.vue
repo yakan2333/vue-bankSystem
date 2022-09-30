@@ -166,7 +166,6 @@ export default {
       this.$axios("/fund/list", {
         params: this.query,
       }).then((resp) => {
-        console.log(resp);
         if (resp.data.code == 200) {
           this.pagination.currentPage = resp.data.data.current;
           this.pagination.pageSize = resp.data.data.size;

@@ -205,7 +205,7 @@ export const userRoutes = [
     },
     {
       path: 'cardDetail',
-      name: 'cardDetail',
+      name: 'myCardDetail',
       component: () => import('@/pages/myAccount/cardDetail'),
       meta: {
         title: '银行卡明细',

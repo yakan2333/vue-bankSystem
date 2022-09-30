@@ -182,7 +182,6 @@ export default {
   },
   computed: {},
   methods: {
-    /*标题敏感词判断*/
     //获取验证码
     getVerify() {
       let v = Math.random();
@@ -240,9 +239,10 @@ export default {
           if (value == "123456") {
             this.$message({
               type: "success",
-              message: "登陆成功",
+              message: "购买成功",
             });
             // this.$router.push({ name: "myFundList" });
+
             this.$router.push({ name: "backInfo" });
           } else {
             this.$message({
@@ -257,6 +257,18 @@ export default {
             message: "取消输入",
           });
         });
+    },
+    //获取列表数据
+    getCardData() {
+      this.$axios("tf/getCardIds", {
+        params: { userId: this.query.userId },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          this.bankCards = resp.data.data.data;
+        } else {
+          this.bankCards = [];
+        }
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
