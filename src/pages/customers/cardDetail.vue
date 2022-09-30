@@ -2,31 +2,40 @@
   <div class="container">
     <el-container>
       <el-header height="150px">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" class="demo-form-inline">
           <el-col :span="8">
             <el-form-item label="户名">
-              <el-input v-model="formInline.user" placeholder="姓名"></el-input>
+              <el-input
+                v-model="cardInfo.name"
+                placeholder="姓名"
+                readonly
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="账号">
               <el-input
-                v-model="formInline.user"
+                readonly
+                v-model="cardInfo.id"
                 placeholder="8888888888888888"
               ></el-input> </el-form-item
           ></el-col>
           <el-col :span="6">
             <el-form-item>
-              <el-button type="danger" icon="el-icon-delete">
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                @click="handleDelete"
+              >
                 注销此卡
               </el-button>
             </el-form-item></el-col
           >
         </el-form>
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" class="demo-form-inline">
           <el-col :span="8">
             <el-form-item label="币种">
-              <el-select v-model="formInline.region" placeholder="人民币">
+              <el-select v-model="cardInfo.type" placeholder="人民币">
                 <el-option label="人民币" value="shanghai"></el-option>
                 <el-option label="美元" value="beijing"></el-option>
               </el-select> </el-form-item
@@ -34,7 +43,8 @@
           <el-col :span="8">
             <el-form-item label="激活日期">
               <el-input
-                v-model="formInline.date"
+                readonly
+                v-model="cardInfo.date"
                 placeholder=""
               ></el-input> </el-form-item
           ></el-col>
@@ -106,10 +116,11 @@ export default {
     return {
       total: 100,
       FormStyles: true,
-      formInline: {
-        user: "",
-        region: "",
-        date: "",
+      cardInfo: {
+        id: "",
+        name: "",
+        type: "人民币",
+        date: "2019-08-01",
       },
       tableData: [
         {
@@ -151,12 +162,39 @@ export default {
           counterParty: "秋名山老司机",
         },
       ],
+      cardData: [],
+      customerData: [],
     };
   },
   methods: {
     onChange() {
       this.FormStyles = !this.FormStyles;
     },
+    handleDelete() {
+      //确认删除
+      this.$confirm("此操作将永久注销此卡, 是否确定?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: true,
+      })
+        .then(() => {
+          //删除
+          console.log("执行删除操作中...");
+          this.$router.push("customerEdit");
+        })
+        .catch(() => {
+          this.array = [];
+        });
+    },
+  },
+  mounted() {
+    let cardData = sessionStorage.getItem("cardData");
+    this.cardData = JSON.parse(cardData);
+    let customerData = sessionStorage.getItem("customerData");
+    this.customerData = JSON.parse(customerData);
+    this.cardInfo.id = this.cardData.cardNo;
+    this.cardInfo.name = this.customerData.name;
   },
 };
 </script>

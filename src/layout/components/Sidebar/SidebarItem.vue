@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!item.hidden">
+  <div v-if="!item.hidden && hasRole(item)">
     <template
       v-if="
         hasOneShowingChild(item.children, item) &&
@@ -51,6 +51,7 @@ import { isExternal } from "@/utils/validate";
 import Item from "./Item";
 import AppLink from "./Link";
 import FixiOSBug from "./FixiOSBug";
+import { log } from "console";
 
 export default {
   name: "SidebarItem",
@@ -100,6 +101,14 @@ export default {
       }
 
       return false;
+    },
+    hasRole(item) {
+      let p = JSON.parse(localStorage.getItem("user"));
+      if (item.hasOwnProperty("role")) {
+        return item.role == p.role;
+      } else {
+        return true;
+      }
     },
     resolvePath(routePath) {
       if (isExternal(routePath)) {

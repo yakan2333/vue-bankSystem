@@ -19,7 +19,7 @@
         <el-input
           ref="account"
           v-model="loginForm.account"
-          placeholder="Username"
+          placeholder="请输入用户名"
           name="account"
           type="text"
           tabindex="1"
@@ -32,21 +32,10 @@
           <svg-icon icon-class="password" />
         </span>
         <el-input
-          :key="passwordType"
-          ref="password"
+          placeholder="请输入密码"
           v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon
-            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-          />
-        </span>
+          show-password
+        ></el-input>
       </el-form-item>
 
       <el-checkbox v-model="loginForm.rememberMe" style="margin: 0 0 25px 0">
@@ -70,7 +59,7 @@
 
 <script>
 import { validUsername } from "@/utils/validate";
-
+import { adminRoutes } from "@/router";
 export default {
   name: "Login",
   data() {
@@ -82,7 +71,7 @@ export default {
       }
     };
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
+      if (value.length < 4) {
         callback(new Error("The password can not be less than 6 digits"));
       } else {
         callback();
@@ -92,12 +81,11 @@ export default {
       loginForm: {
         account: "",
         password: "",
+        rememberMe: true,
       },
 
       loginRules: {
-        account: [
-          { required: true, trigger: "blur", validator: validateUsername },
-        ],
+        account: [{ required: true, trigger: "blur" }],
         password: [
           { required: true, trigger: "blur", validator: validatePassword },
         ],
@@ -108,21 +96,15 @@ export default {
     };
   },
   methods: {
-    showPwd() {
-      if (this.passwordType === "password") {
-        this.passwordType = "";
-      } else {
-        this.passwordType = "password";
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus();
-      });
-    },
     getLoginData() {
-      this.$axios("/admin/login", {
-        params: this.loginForm,
+      this.$axios("/login", {
+        params: {
+          userName: this.loginForm.account,
+          password: this.loginForm.password,
+        },
       }).then((resp) => {
-        if (resp.data.code == 0 && resp.data.data != null) {
+        this.loading = false;
+        if (resp.data.code == 200 && resp.data.data != null) {
           this.$message.success("登录成功");
           let adminInfo = resp.data.data;
           localStorage.setItem("user", JSON.stringify(adminInfo));
@@ -133,30 +115,28 @@ export default {
         }
       });
     },
-    // handleLogin() {
-    //   this.$refs.loginForm.validate((valid) => {
-    //     if (valid) {
-    //       this.loading = true;
-    //       this.getLoginData();
-    //       this.loading = false;
-    //     } else {
-    //       console.log("error submit!!");
-    //       return false;
-    //     }
-    //   });
-    // },
     handleLogin() {
-      this.$router.push({ path: "/home" });
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          this.loading = true;
+          this.getLoginData();
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
+    // handleLogin() {
+    //   this.$router.push({ path: "/home" });
+    // },
   },
   mounted() {
     if (localStorage.getItem("user") != null) {
       let p = JSON.parse(localStorage.getItem("user"));
       console.log(p);
-      this.loginForm.account = p.account;
-      this.loginForm.password = p.password;
+      this.loginForm.account = p.userName;
+      // this.loginForm.password = p.password;
     }
-    console.log(this);
   },
 };
 </script>
@@ -175,10 +155,10 @@ export default {
   border: 0px;
   -webkit-appearance: none;
   border-radius: 0px;
-  padding: 12px 5px 12px 15px;
+  padding: 12px 0px 12px 15px;
   color: grey;
   height: 40px;
-  caret-color: #fff;
+  caret-color: grey;
 }
 
 .login-container .el-input input:-webkit-autofill {
@@ -221,7 +201,7 @@ export default {
 }
 
 .login-container .svg-container {
-  padding: 6px 5px 6px 15px;
+  padding: 6px 0px 6px 15px;
   color: #454545;
   vertical-align: middle;
   width: 30px;

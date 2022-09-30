@@ -5,7 +5,7 @@
 <script>
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
-import resize from "./mixins/resize";
+import resize from "../dashboard/mixins/resize";
 
 export default {
   mixins: [resize],
@@ -64,7 +64,7 @@ export default {
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: ["0:00", "8:00", "10:00", "12:00", "14:00", "16:00", "18:00"],
           boundaryGap: false,
           axisTick: {
             show: false,
@@ -90,11 +90,11 @@ export default {
           },
         },
         legend: {
-          data: ["期望数据", "实际数据"],
+          data: ["expected", "排队人数"],
         },
         series: [
           {
-            name: "期望数据",
+            name: "expected",
             itemStyle: {
               normal: {
                 color: "#FF005A",
@@ -111,7 +111,7 @@ export default {
             animationEasing: "cubicInOut",
           },
           {
-            name: "实际数据",
+            name: "排队人数",
             smooth: true,
             type: "line",
             itemStyle: {
