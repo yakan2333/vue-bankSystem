@@ -18,6 +18,7 @@ export const adminRoutes = [
       title: '客户信息管理',
       icon: 'el-icon-s-custom'
     },
+    role: 2,
     children: [{
       path: 'customerList',
       name: 'customer',
@@ -67,6 +68,7 @@ export const adminRoutes = [
       title: '人员信息管理',
       icon: 'el-icon-user-solid'
     },
+    role: 2,
     children: [{
       path: 'staffList',
       name: 'staff',
@@ -100,6 +102,7 @@ export const adminRoutes = [
   {
     path: '/configuration',
     component: Layout,
+    role: 2,
     children: [{
       path: 'index',
       name: 'configuration',
@@ -107,59 +110,12 @@ export const adminRoutes = [
       meta: {
         title: '机构参数配置',
         icon: 'el-icon-office-building'
-      }
+      },
     }]
   },
 ]
 // 普通用户路由
 export const userRoutes = [
-  // 叫号服务
-  {
-    path: '/makeCall',
-    component: Layout,
-    meta: {
-      title: '叫号服务',
-      icon: 'el-icon-message-solid'
-    },
-    children: [{
-      path: 'index',
-      name: 'makeCall',
-      component: () => import('@/pages/makeCall/index'),
-      meta: {
-        title: '叫号服务',
-        icon: 'el-icon-bell'
-      }
-    },
-    {
-      path: 'menu2',
-      name: 'menu2',
-      component: () => import('@/pages/makeCall/menu2'),
-      meta: {
-        title: '备用',
-        icon: 'el-icon-date'
-      }
-    },
-
-    ]
-  },
-  // 预约服务
-  {
-    path: '/appointment',
-    component: Layout,
-    meta: {
-      title: '预约服务',
-      icon: 'el-icon-date'
-    },
-    children: [{
-      path: 'index',
-      name: 'appointment',
-      component: () => import('@/pages/appointment/index'),
-      meta: {
-        title: '预约服务',
-        icon: 'el-icon-date'
-      }
-    }]
-  },
   // 基金交易
   {
     path: '/fundTrade',
@@ -170,6 +126,7 @@ export const userRoutes = [
       title: '基金交易',
       icon: 'el-icon-coin'
     },
+    role: 1,
     children: [{
       path: 'fundList',
       name: 'fundList',
@@ -218,6 +175,7 @@ export const userRoutes = [
       title: '我的账户',
       icon: 'el-icon-house'
     },
+    role: 1,
     children: [{
       path: 'accountList',
       name: 'accountList',
@@ -246,6 +204,55 @@ export const userRoutes = [
       }
     }
     ]
+  },
+  // 叫号服务
+  {
+    path: '/makeCall',
+    component: Layout,
+    meta: {
+      title: '叫号服务',
+      icon: 'el-icon-message-solid'
+    },
+    role: 1,
+    children: [{
+      path: 'index',
+      name: 'makeCall',
+      component: () => import('@/pages/makeCall/index'),
+      meta: {
+        title: '叫号服务',
+        icon: 'el-icon-bell'
+      }
+    },
+    {
+      path: 'menu2',
+      name: 'menu2',
+      component: () => import('@/pages/makeCall/menu2'),
+      meta: {
+        title: '备用',
+        icon: 'el-icon-date'
+      }
+    },
+
+    ]
+  },
+  // 预约服务
+  {
+    path: '/appointment',
+    component: Layout,
+    meta: {
+      title: '预约服务',
+      icon: 'el-icon-date'
+    },
+    role: 1,
+    children: [{
+      path: 'index',
+      name: 'appointment',
+      component: () => import('@/pages/appointment/index'),
+      meta: {
+        title: '预约服务',
+        icon: 'el-icon-date'
+      }
+    }]
   },
 ]
 
