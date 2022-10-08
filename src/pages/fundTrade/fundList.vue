@@ -124,6 +124,7 @@
 export default {
   data() {
     return {
+      websock: null,
       postData: "", //传递数据
       fund: [
         {
@@ -269,9 +270,48 @@ export default {
       // this.$bus.$emit("staffData", this.postData);
       this.$router.push("fundPurchase");
     },
+    initWebSocket() {
+      //初始化weosocket
+      this.websock = new WebSocket("ws://localhost:8080/api/info");
+      this.websock.onopen = this.websocketonopen;
+      this.websock.onerror = this.websocketonerror;
+      this.websock.onmessage = this.websocketonmessage;
+      this.websock.onclose = this.websocketclose;
+    },
+
+    websocketonopen() {
+      console.log("WebSocket连接成功");
+      this.websocketsend("测试");
+    },
+    websocketonerror(e) {
+      //错误
+      console.log("WebSocket连接发生错误");
+    },
+    websocketonmessage(e) {
+      //数据接收
+      var newdata = JSON.parse(e.data);
+      this.pagination.currentPage = newdata.data.current;
+      this.pagination.pageSize = newdata.data.size;
+      this.pagination.total = newdata.data.total;
+      this.fund = newdata.data.records;
+    },
+
+    websocketsend(agentData) {
+      //数据发送
+      this.websock.send(agentData);
+    },
+
+    websocketclose(e) {
+      //关闭
+      console.log("connection closed (" + e.code + ")");
+    },
+  },
+  destroyed() {
+    this.websock.close();
   },
   mounted() {
     this.getData();
+    this.initWebSocket();
   },
 };
 </script>
