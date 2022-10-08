@@ -261,7 +261,17 @@ export const userRoutes = [
         title: '预约服务',
         icon: 'el-icon-date'
       }
-    }]
+    },
+    {
+      path: 'myAppointment',
+      name: 'appointment',
+      component: () => import('@/pages/appointment/myAppointment'),
+      meta: {
+        title: '我的预约',
+        icon: 'el-icon-date'
+      }
+    },
+    ]
   },
 ]
 

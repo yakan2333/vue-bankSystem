@@ -38,20 +38,20 @@ import BarChart from "@/components/Echarts/BarChart";
 
 const lineChartData = {
   newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145],
+    expectedData: [20, 21, 27, 25, 24, 25, 27],
+    actualData: [25, 24, 27, 21, 25, 27, 26],
   },
   messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130],
+    expectedData: [1200, 1092, 1120, 1144, 1260, 1030, 940],
+    actualData: [1180, 1060, 1151, 1006, 1145, 1150, 1030],
   },
   purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130],
+    expectedData: [380, 400, 421, 404, 405, 490, 400],
+    actualData: [420, 390, 500, 438, 442, 430, 430],
   },
   shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130],
+    expectedData: [30, 40, 41, 42, 45, 50, 60],
+    actualData: [30, 62, 71, 54, 62, 40, 30],
   },
 };
 

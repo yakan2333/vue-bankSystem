@@ -9,8 +9,8 @@
           <div class="card-panel-text">客户数量</div>
           <count-to
             :start-val="0"
-            :end-val="114514"
-            :duration="2600"
+            :end-val="27"
+            :duration="500"
             class="card-panel-num"
           />
         </div>
@@ -25,8 +25,8 @@
           <div class="card-panel-text">本周流量</div>
           <count-to
             :start-val="0"
-            :end-val="99999"
-            :duration="3000"
+            :end-val="1100"
+            :duration="1000"
             class="card-panel-num"
           />
         </div>
@@ -41,8 +41,8 @@
           <div class="card-panel-text">基金数量</div>
           <count-to
             :start-val="0"
-            :end-val="8888"
-            :duration="2000"
+            :end-val="500"
+            :duration="800"
             class="card-panel-num"
           />
         </div>
@@ -54,11 +54,11 @@
           <i class="el-icon-data-line" id="card-panel-icon"></i>
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">新增账户</div>
+          <div class="card-panel-text">交易次数</div>
           <count-to
             :start-val="0"
-            :end-val="6666"
-            :duration="2500"
+            :end-val="52"
+            :duration="500"
             class="card-panel-num"
           />
         </div>
