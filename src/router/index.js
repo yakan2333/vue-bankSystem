@@ -268,7 +268,7 @@ export const userRoutes = [
       component: () => import('@/pages/appointment/myAppointment'),
       meta: {
         title: '我的预约',
-        icon: 'el-icon-date'
+        icon: 'el-icon-document'
       }
     },
     ]
