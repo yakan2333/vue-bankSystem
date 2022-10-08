@@ -1,9 +1,36 @@
 <template>
     <div>
-        <div id="allmap"></div>
+        <div id="allmap">
 
-        <div id="buttons">
-            <button id="backToUserBT">返回用户位置</button>
+        </div>
+        <div id="selectTime">
+            <button id="backToUserBT">返回以用户为中心地图</button>
+            <el-select v-model="options.value" placeholder="请选择预约时间" @change="getresult">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
+
+        <div>
+            <el-table :data="tableData" border style="width: 100%">
+                <el-table-column prop="id" label="网点编号" width="180">
+                </el-table-column>
+                <el-table-column prop="name" label="网点名" width="180">
+                </el-table-column>
+                <el-table-column prop="num" label="当前预约人数" width="180">
+                </el-table-column>
+                <el-table-column prop="distance" label="距离(米)">
+                </el-table-column>
+                <el-table-column prop="time" label="大致需要等待时间(分钟)">
+                </el-table-column>
+
+                <el-table-column label="预约操作" prop="compile">
+                    <template slot-scope="{row, $index}">
+                        <el-button type="button" size="mini" @click="handlePass(row, $index)">{{row.compile}}
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         </div>
     </div>
 
@@ -17,6 +44,20 @@ export default {
     name: "MapVGL",
     data() {
         return {
+            appointment: {
+                userID: 18,
+                mechanismId: 10001,
+                time: 1
+            },
+            tableData: [],
+            distanceList: [],
+            nameList: [],
+            options: [
+                { value: 1, label: '8:00-10:00' },
+                { value: 2, label: '10:00-12:00' },
+                { value: 3, label: '14:00-16:00' },
+                { value: 4, label: '16:00-18:00' },
+            ],
             iconSize: { w: 30, h: 30, l: 0, t: 0, x: 6, lb: 5 },
             userMarkerInfo: { id: "sb", url: "src\pages\appointment\img\test.png", title: "华少", content: "您的位置", lng: 0, lat: 0 },
         };
@@ -34,7 +75,7 @@ export default {
         }).catch(function (error) {
             console.log(error);
         }).then(function () {
-            console.log("从后端接收数据");
+            console.log("初始化地图信息");
         })
     },
     methods: {
@@ -102,7 +143,7 @@ export default {
 
         addMarker(json) {
 
-            console.log("marker: lng:" + json.lng + ",lat:" + json.lat);
+            /*  console.log("marker: lng:" + json.lng + ",lat:" + json.lat); */
 
             //根据坐标创建标注点
             let iconImg = this.createIcon(json);
@@ -118,7 +159,7 @@ export default {
 
             map.addOverlay(marker);
 
-            console.log("新增标注: ID:" + json.id + " 坐标：" + json.lng + "," + json.lat);
+            /* console.log("新增标注: ID:" + json.id + " 坐标：" + json.lng + "," + json.lat); */
             return marker;
         },
 
@@ -151,6 +192,9 @@ export default {
                     console.log("地图中心定位到位置：" + that.userMarkerInfo.lng + "，" + that.userMarkerInfo.lat);
                 }, 1000);
             });
+
+
+            
         },
 
         //批量增加点和标注
@@ -189,16 +233,140 @@ export default {
                 markerInfoList.push(info);
             }
 
+            window.markerInfoList = markerInfoList;
             return markerInfoList;
         },
 
+
+        //根据当前网点信息计算出距离用户距离和所需时间
+        getMechanismList() {
+            let list = window.markerInfoList;
+            let speed = 6 * 60;//每分钟行驶多少米
+            let userPoint = new BMap.Point(this.userMarkerInfo.lng, this.userMarkerInfo.lat);
+
+            this.nameList = new Map();
+            this.distanceList = new Map();
+
+            //记录
+            let userToMechanismTime = new Map();
+            /* console.log("========================================");
+            console.log("市区行驶速度约为：" + speed + "米/分钟\n"); */
+
+            for (let i = 0; i < list.length; i++) {
+                let distance = map.getDistance(userPoint, new BMap.Point(list[i].lng, list[i].lat)).toFixed(2);
+                let time = (distance / speed).toFixed(2);
+
+                /* console.log("网点：" + list[i].title + " , 经纬度：" + list[i].lng + "," + list[i].lat);
+                console.log("距离用户点：" + distance + "米");
+                console.log("所需时间：" + time + "分钟\n"); */
+
+                userToMechanismTime.set(list[i].id, time);
+
+                this.nameList.set(list[i].id, list[i].title);
+                this.distanceList.set(list[i].id, distance);
+
+            }
+            /* console.log(userToMechanismTime.entries());
+            console.log("========================================"); */
+
+
+            //返回Map
+            return userToMechanismTime;
+        },
+
+
+
+        //排序计算各网点大致需要等待时间
+        addTime(map, list) {
+            for (let i = 0; i < list.length; i++) {
+                /* console.log("时间1：" + list[i].time);
+                console.log("时间2：" + map.get(list[i].id)); */
+
+                list[i].time = parseFloat(parseFloat(list[i].time) + parseFloat(map.get(list[i].id))).toFixed(2);
+            }
+
+            return this.sortList(list);
+        },
+
+
+        sortList(list) {
+            list.sort(function (a, b) {
+                return a.time - b.time;//	降序，升序则反之
+            });
+
+            return list;
+        },
+
+        //
+        getresult() {
+            let that = this;
+            let map = that.getMechanismList();
+
+            axios.get("/recommend").then(function (response) {
+                let list = response.data.data.data;
+                console.log(list);
+
+                let time = that.options.value - 1;
+                if (that.options.value == null) {
+                    time = 0;
+                }
+
+                let result = that.addTime(map, list[time]);
+                console.log(result);
+
+                that.showList(result);
+
+            }).catch(function (error) {
+                console.log(error);
+            }).then(function () {
+                console.log("从后端接收数据");
+            })
+        },
+
+        //
+        showList(result) {
+
+            this.tableData = [];
+            for (let i = 0; i < result.length; i++) {
+                this.tableData.push({
+                    id: result[i].id,
+                    name: this.nameList.get(result[i].id),
+                    num: result[i].num,
+                    distance: this.distanceList.get(result[i].id),
+                    time: result[i].time,
+                    compile: "预约"
+                });
+            }
+            console.log(this.tableData);
+        },
+
+        handlePass(row, $index) {
+            this.appointment.mechanismId = row.id;
+            this.appointment.time = this.options.value;
+
+            console.log(this.appointment);
+
+
+            axios.get("/appointment", {
+                params: this.appointment,
+            }).then((resp) => {
+                console.log(resp);
+
+                if (resp.data.data.code == 250) {
+                    alert("预约失败，当前时间段当前网点已存在，不可重复预约");
+                }
+                else {
+                    this.getresult();
+                }
+            });
+        }
     }
 }
 </script>
   
 <style scoped>
 #allmap {
-    width: 1250px;
+    width: 1000px;
     height: 600px;
 }
 </style>
