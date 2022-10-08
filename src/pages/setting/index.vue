@@ -39,7 +39,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="账号">
-            <el-input v-model="userForm.account" readonly />
+            <el-input v-model="userForm.userName" readonly />
             <el-link
               type="primary"
               :underline="false"
@@ -62,8 +62,8 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="性别">
-            <el-radio v-model="userForm.sex" :label="1"> 男 </el-radio>
-            <el-radio v-model="userForm.sex" :label="2"> 女 </el-radio>
+            <el-radio v-model="userForm.sex" :label="male"> 男 </el-radio>
+            <el-radio v-model="userForm.sex" :label="female"> 女 </el-radio>
           </el-form-item>
         </el-col>
       </el-row>
@@ -102,13 +102,16 @@ export default {
         id: "1001",
       },
       nowTime: "",
+      male: "男",
+      female: "女",
       userForm: {
         id: "",
+        userName: "",
         name: "",
         phone: "",
         account: "",
         password: "",
-        sex: 1,
+        sex: "男",
         account: "",
       },
       url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",

@@ -264,7 +264,7 @@ export const userRoutes = [
     },
     {
       path: 'myAppointment',
-      name: 'appointment',
+      name: 'myAppointment',
       component: () => import('@/pages/appointment/myAppointment'),
       meta: {
         title: '我的预约',
