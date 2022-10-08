@@ -49,7 +49,15 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="银行账户" prop="account">
-              <el-input v-model="account" readonly />
+              <el-select v-model="account" placeholder="请选择">
+                <el-option
+                  v-for="item in bankCards"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                >
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -122,7 +130,8 @@ export default {
       checkList: ["3"],
       imgSrc: "",
       //表单数据
-      account: "88888888888",
+      userData: "",
+      account: "",
       ruleForm: {
         amount: 10,
         validCode: "",
@@ -147,6 +156,8 @@ export default {
         type: "混合型",
         year: -8.75,
       },
+      bankCards: [],
+      purchaseResult: "",
       rules: {
         amount: [
           {
@@ -231,7 +242,7 @@ export default {
       });
     },
     OpenCheckBox() {
-      this.$prompt("确认登录密码", "提示", {
+      this.$prompt("确认支付密码", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
       })
@@ -242,7 +253,7 @@ export default {
               message: "购买成功",
             });
             // this.$router.push({ name: "myFundList" });
-
+            this.getResultData();
             this.$router.push({ name: "backInfo" });
           } else {
             this.$message({
@@ -258,13 +269,35 @@ export default {
           });
         });
     },
-    //获取列表数据
-    getCardData() {
-      this.$axios("tf/getCardIds", {
-        params: { userId: this.query.userId },
+    //获取购买结果
+    getResultData() {
+      this.$axios("/buy", {
+        params: {
+          currency: "人民币",
+          purchaseCardNo: this.account,
+          purchaseAmount: this.ruleForm.amount,
+          fundNum: this.FundData.num,
+        },
       }).then((resp) => {
         if (resp.data.code == 200) {
-          this.bankCards = resp.data.data.data;
+          this.purchaseResult = resp.data.data;
+          sessionStorage.setItem(
+            "purchaseResult",
+            JSON.stringify(this.purchaseResult)
+          );
+          console.log(this.purchaseResult);
+        } else {
+          this.purchaseResult = {};
+        }
+      });
+    },
+    // 获取卡信息
+    getCardData() {
+      this.$axios("tf/getCardIds", {
+        params: { userId: this.userData.id },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          this.bankCards = resp.data.data;
         } else {
           this.bankCards = [];
         }
@@ -276,9 +309,12 @@ export default {
   },
   mounted() {
     let postFundData = sessionStorage.getItem("postFundData");
+    let user = sessionStorage.getItem("user");
+    this.userData = JSON.parse(user);
     this.FundData = JSON.parse(postFundData);
     this.ruleForm.amount = sessionStorage.getItem("amountData");
     this.getVerify();
+    this.getCardData();
   },
 };
 </script>
