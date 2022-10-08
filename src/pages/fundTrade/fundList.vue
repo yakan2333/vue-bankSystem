@@ -289,13 +289,11 @@ export default {
     },
     websocketonmessage(e) {
       //数据接收
-
       var newdata = JSON.parse(e.data);
       this.pagination.currentPage = newdata.data.current;
       this.pagination.pageSize = newdata.data.size;
       this.pagination.total = newdata.data.total;
       this.fund = newdata.data.records;
-      console.log(newdata);
     },
 
     websocketsend(agentData) {
