@@ -91,7 +91,7 @@
                 :timestamp="c.date"
               >
                 <el-card>
-                  <h2>+{{ c.TransactionAmount }}元</h2>
+                  <h2>{{ c.TransactionAmount }}元</h2>
                   <p>
                     交易类型:{{ c.type }}
                     <span style="width: 30px; display: inline-block"></span>
@@ -147,7 +147,13 @@ export default {
             item.id = v.id
             item.date = v.transferTime
             item.type = "工资"
-            item.TransactionAmount = v.transferMoney
+
+            if (this.originalCardNo === v.transferCardNo) {
+              item.TransactionAmount = '-' + v.transferMoney
+            } else if (this.originalCardNo === v.collectionCardNo) {
+              item.TransactionAmount = '+' + v.transferMoney
+            }
+
             item.counterParty = v.collectionUsername
             this.tableData.push(item)
           }
