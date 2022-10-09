@@ -45,11 +45,14 @@
           <i class="el-icon-share">分享</i>
         </el-row>
         <el-row>
-          <el-col :span="16">
-            <el-input placeholder="10" v-model="num">
+          <el-col :span="6">
+            <span style="line-height: 40px">持有金额:</span>
+          </el-col>
+          <el-col :span="10">
+            <el-input placeholder="100" v-model="fundDetail2.holdingMoney">
               <span
                 slot="suffix"
-                style="line-height: 40px; color: black; margin-right: 10px"
+                style="line-height: 40px; color: black; margin-right: 5px"
                 >元
               </span>
               <el-button
@@ -57,13 +60,13 @@
                 slot="suffix"
                 type="primary"
                 @click="handToBuy"
-                >购买</el-button
+                >卖出</el-button
               >
             </el-input>
           </el-col>
           <div style="float: right">
             <el-button type="primary" plain @click="handToBuy"
-              ><i class="el-icon-coin"></i>定投</el-button
+              ><i class="el-icon-coin"></i>买入</el-button
             >
           </div>
         </el-row>
