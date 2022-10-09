@@ -44,8 +44,8 @@
                   placeholder="请选择银行卡"
                 >
                   <el-option
-                    label="888-8888888 中国建设银行"
-                    value="888-8888888 中国建设银行"
+                    label="6222025814936045931"
+                    value="6222025814936045931"
                   />
                 </el-select>
               </el-form-item>
@@ -103,9 +103,9 @@ export default {
       //表单数据
       ruleForm: {
         payeeAccount: "李知林", // 收款户名
-        accountNumber: "6868686868668", // 收款账号
+        accountNumber: "6222025814936045931", // 收款账号
         bank: "", // 收款银行
-        bankCard: "6224342110001", // 转账卡号
+        bankCard: "6222025814936045932", // 转账卡号
         transferAmount: "", // 转账金额
         password: "", // 密码
       },

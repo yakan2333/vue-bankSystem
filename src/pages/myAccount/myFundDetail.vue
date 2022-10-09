@@ -256,27 +256,27 @@ export default {
       });
     },
     // 获取基金详情
-    // getFundData() {
-    //   this.$axios("/fund/list", {
-    //     params: {num:this.fundDetail2.num},
-    //   }).then((resp) => {
-    //     if (resp.data.code == 200) {
-    //       this.pagination.currentPage = resp.data.data.current;
-    //       this.pagination.pageSize = resp.data.data.size;
-    //       this.pagination.total = resp.data.data.total;
-    //       this.fund = resp.data.data.records;
-    //     } else {
-    //       this.pagination = {};
-    //       this.fund = [];
-    //     }
-    //   });
-    // },
+    getFundData() {
+      this.$axios("/fund/list", {
+        params: { num: this.fundDetail2.name },
+      })
+        .then((resp) => {
+          if (resp.data.code == 200) {
+            this.fundDetail = resp.data.data.records[0];
+          } else {
+            this.pagination = {};
+          }
+        })
+        .then((resp) => {
+          this.getChartData();
+        });
+    },
   },
   mounted() {
     let fundData = sessionStorage.getItem("postFundData");
-    this.fundDetail = JSON.parse(fundData);
-    console.log(this.fundDetail);
-    this.getChartData();
+    this.fundDetail2 = JSON.parse(fundData);
+    console.log(this.fundDetail2);
+    this.getFundData();
   },
 };
 </script>

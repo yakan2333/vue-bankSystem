@@ -192,6 +192,7 @@ export default {
   mounted() {
     let cardData = sessionStorage.getItem("cardData");
     this.cardData = JSON.parse(cardData);
+    console.log(this.cardData);
     let userInfo = sessionStorage.getItem("user");
     this.customerData = JSON.parse(userInfo);
     console.log(this.customerData);
