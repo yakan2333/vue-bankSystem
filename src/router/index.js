@@ -176,42 +176,52 @@ export const userRoutes = [
       icon: 'el-icon-house'
     },
     role: 1,
-    children: [{
-      path: 'accountList',
-      name: 'accountList',
-      component: () => import('@/pages/myAccount/accountList'),
-      meta: {
-        title: '账户信息',
-        icon: 'el-icon-monitor'
+    children: [
+      {
+        path: 'accountList',
+        name: 'accountList',
+        component: () => import('@/pages/myAccount/accountList'),
+        meta: {
+          title: '账户信息',
+          icon: 'el-icon-monitor'
+        },
       },
-    },
-    {
-      path: 'transfer',
-      name: 'transfer',
-      component: () => import('@/pages/myAccount/transfer'),
-      meta: {
-        title: '转账业务',
-        icon: 'el-icon-data-analysis'
-      }
-    },
-    {
-      path: 'myFundList',
-      name: 'myFundList',
-      component: () => import('@/pages/myAccount/myFundList'),
-      meta: {
-        title: '我的基金',
-        icon: 'el-icon-s-ticket'
-      }
-    },
-    {
-      path: 'cardDetail',
-      name: 'myCardDetail',
-      component: () => import('@/pages/myAccount/cardDetail'),
-      meta: {
-        title: '银行卡明细',
+      {
+        path: 'transfer',
+        name: 'transfer',
+        component: () => import('@/pages/myAccount/transfer'),
+        meta: {
+          title: '转账业务',
+          icon: 'el-icon-data-analysis'
+        }
       },
-      hidden: true,
-    },
+      {
+        path: 'myFundList',
+        name: 'myFundList',
+        component: () => import('@/pages/myAccount/myFundList'),
+        meta: {
+          title: '我的基金',
+          icon: 'el-icon-s-ticket'
+        }
+      },
+      {
+        path: 'cardDetail',
+        name: 'myCardDetail',
+        component: () => import('@/pages/myAccount/cardDetail'),
+        meta: {
+          title: '银行卡明细',
+        },
+        hidden: true,
+      },
+      {
+        path: 'myFundDetail',
+        name: 'myFundDetail',
+        component: () => import('@/pages/myAccount/myFundDetail'),
+        meta: {
+          title: '基金详情',
+        },
+        hidden: true,
+      },
     ]
   },
   // 叫号服务
