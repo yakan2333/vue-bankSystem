@@ -59,35 +59,35 @@ export const adminRoutes = [
     ]
   },
   // 叫号服务
-  {
-    path: '/makeCall',
-    component: Layout,
-    meta: {
-      title: '叫号服务',
-      icon: 'el-icon-message-solid'
-    },
-    role: 2,
-    children: [{
-      path: 'index',
-      name: 'makeCall',
-      component: () => import('@/pages/makeCall/index'),
-      meta: {
-        title: '叫号服务',
-        icon: 'el-icon-bell'
-      }
-    },
-      // {
-      //   path: 'menu2',
-      //   name: 'menu2',
-      //   component: () => import('@/pages/makeCall/menu2'),
-      //   meta: {
-      //     title: '备用',
-      //     icon: 'el-icon-date'
-      //   }
-      // },
+  // {
+  //   path: '/makeCall',
+  //   component: Layout,
+  //   meta: {
+  //     title: '叫号服务',
+  //     icon: 'el-icon-message-solid'
+  //   },
+  //   role: 2,
+  //   children: [{
+  //     path: 'index',
+  //     name: 'makeCall',
+  //     component: () => import('@/pages/makeCall/index'),
+  //     meta: {
+  //       title: '叫号服务',
+  //       icon: 'el-icon-bell'
+  //     }
+  //   },
+  //     // {
+  //     //   path: 'menu2',
+  //     //   name: 'menu2',
+  //     //   component: () => import('@/pages/makeCall/menu2'),
+  //     //   meta: {
+  //     //     title: '备用',
+  //     //     icon: 'el-icon-date'
+  //     //   }
+  //     // },
 
-    ]
-  },
+  //   ]
+  // },
   // 人员信息管理
   {
     path: '/staff',
