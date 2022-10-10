@@ -49,13 +49,13 @@
           <el-button size="mini" @click="handleEdit(scope.row)">
             查看
           </el-button>
-          <el-button
+          <!-- <el-button
             size="mini"
             type="danger"
             @click="handlePurchase(scope.row)"
           >
             卖出
-          </el-button>
+          </el-button> -->
         </template>
       </el-table-column>
     </el-table>
