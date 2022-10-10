@@ -201,7 +201,6 @@ export default {
     //提交
     submitForm(formName) {
       if (this.checkList.length == 3) {
-        console.log("go!");
         this.getChartData();
       } else {
         this.$message({
@@ -277,6 +276,7 @@ export default {
           purchaseCardNo: this.account,
           purchaseAmount: this.ruleForm.amount,
           fundNum: this.FundData.num,
+          userId: this.userData.id,
         },
       }).then((resp) => {
         if (resp.data.code == 200) {
@@ -285,6 +285,7 @@ export default {
             "purchaseResult",
             JSON.stringify(this.purchaseResult)
           );
+          console.log("购买结果：");
           console.log(this.purchaseResult);
         } else {
           this.purchaseResult = {};
@@ -312,7 +313,9 @@ export default {
     let user = sessionStorage.getItem("user");
     this.userData = JSON.parse(user);
     this.FundData = JSON.parse(postFundData);
-    this.ruleForm.amount = sessionStorage.getItem("amountData");
+    if (sessionStorage.getItem("amountData")) {
+      this.ruleForm.amount = sessionStorage.getItem("amountData");
+    }
     this.getVerify();
     this.getCardData();
   },

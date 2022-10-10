@@ -64,13 +64,11 @@
         <transition name="el-zoom-in-center">
           <div v-show="FormStyles">
             <el-table :data="tableData" border style="width: 100%">
-              <el-table-column prop="date" label="交易时间" width="180">
+              <el-table-column prop="date" label="交易时间" width="280">
               </el-table-column>
               <el-table-column prop="type" label="交易类型" width="180">
               </el-table-column>
               <el-table-column prop="TransactionAmount" label="交易金额">
-              </el-table-column>
-              <el-table-column prop="balance" label="可用余额">
               </el-table-column>
               <el-table-column prop="counterParty" label="对手信息">
               </el-table-column>
@@ -93,13 +91,12 @@
                 :timestamp="c.date"
               >
                 <el-card>
-                  <h2>+{{ c.TransactionAmount }}元</h2>
+                  <h2>{{ c.TransactionAmount }}元</h2>
                   <p>
                     交易类型:{{ c.type }}
                     <span style="width: 30px; display: inline-block"></span>
                     对手信息:{{ c.counterParty }}
                   </p>
-                  <h4>余额:{{ c.balance }}</h4>
                 </el-card>
               </el-timeline-item>
             </el-timeline>
@@ -117,6 +114,7 @@ export default {
     return {
       total: 100,
       FormStyles: true,
+      originalCardNo: '',
       cardInfo: {
         id: "",
         name: "",
@@ -131,43 +129,38 @@ export default {
           TransactionAmount: "6666.00",
           balance: "9999.00",
           counterParty: "秋名山老司机",
-        },
-        {
-          id: "2",
-          date: "2019-05-02",
-          type: "工资",
-          TransactionAmount: "6666.00",
-          balance: "9999.00",
-          counterParty: "秋名山老司机",
-        },
-        {
-          id: "3",
-          date: "2019-05-02",
-          type: "工资",
-          TransactionAmount: "6666.00",
-          balance: "9999.00",
-          counterParty: "秋名山老司机",
-        },
-        {
-          date: "2019-05-02",
-          type: "工资",
-          TransactionAmount: "6666.00",
-          balance: "9999.00",
-          counterParty: "秋名山老司机",
-        },
-        {
-          date: "2019-05-02",
-          type: "工资",
-          TransactionAmount: "6666.00",
-          balance: "9999.00",
-          counterParty: "秋名山老司机",
-        },
+        }
       ],
       cardData: [],
       customerData: [],
     };
   },
   methods: {
+    getDate() {
+      this.$axios("/tf/listHistory", {
+        params: { transferCardNo: this.originalCardNo },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          this.tableData = []
+          for (let v of  resp.data.data) {
+            let item = {}
+            item.id = v.id
+            item.date = v.transferTime
+            item.type = "工资"
+
+            if (this.originalCardNo === v.transferCardNo) {
+              item.TransactionAmount = '-' + v.transferMoney
+            } else if (this.originalCardNo === v.collectionCardNo) {
+              item.TransactionAmount = '+' + v.transferMoney
+            }
+
+            item.counterParty = v.collectionUsername
+            this.tableData.push(item)
+          }
+        } else {
+        }
+      });
+    },
     onChange() {
       this.FormStyles = !this.FormStyles;
     },
@@ -192,11 +185,14 @@ export default {
   mounted() {
     let cardData = sessionStorage.getItem("cardData");
     this.cardData = JSON.parse(cardData);
+    console.log(this.cardData);
     let userInfo = sessionStorage.getItem("user");
     this.customerData = JSON.parse(userInfo);
-    console.log(this.customerData);
+    // console.log(this.customerData);
+    this.originalCardNo = this.cardData.originalCardNo
     this.cardInfo.id = this.cardData.cardNo;
     this.cardInfo.name = this.customerData.name;
+    this.getDate();
   },
 };
 </script>
