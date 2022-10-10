@@ -202,8 +202,8 @@ export default {
     //查看详情
     handleEdit(row) {
       this.postFundData = JSON.stringify(row);
-      sessionStorage.setItem("postFundData", this.postFundData);
-      // this.$bus.$emit("staffData", this.postData);
+      sessionStorage.setItem("postFundData1", this.postFundData);
+      console.log(this.postFundData);
       this.$router.push("myFundDetail");
     },
     //购买基金

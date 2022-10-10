@@ -267,7 +267,7 @@ export default {
     // 获取基金详情
     getFundData() {
       this.$axios("/fund/list", {
-        params: { num: this.fundDetail2.name },
+        params: { name: this.fundDetail2.name },
       })
         .then((resp) => {
           if (resp.data.code == 200) {
@@ -307,7 +307,7 @@ export default {
           if (value == "123456") {
             this.$message({
               type: "success",
-              message: "购买成功",
+              message: "卖出成功",
             });
             this.sellFund();
           } else {
@@ -326,7 +326,7 @@ export default {
     },
   },
   mounted() {
-    let fundData = sessionStorage.getItem("postFundData");
+    let fundData = sessionStorage.getItem("postFundData1");
     this.fundDetail2 = JSON.parse(fundData);
     if (localStorage.getItem("user")) {
       let p = JSON.parse(localStorage.getItem("user"));
