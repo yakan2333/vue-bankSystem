@@ -302,6 +302,7 @@ export default {
       this.$prompt("确认支付密码", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
+        inputType: "password",
       })
         .then(({ value }) => {
           if (value == "123456") {
