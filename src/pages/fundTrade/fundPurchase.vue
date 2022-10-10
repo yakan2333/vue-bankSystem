@@ -277,6 +277,7 @@ export default {
           purchaseAmount: this.ruleForm.amount,
           fundNum: this.FundData.num,
           userId: this.userData.id,
+          transferEquity: this.FundData.latestEquity,
         },
       }).then((resp) => {
         if (resp.data.code == 200) {
