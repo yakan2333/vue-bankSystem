@@ -109,7 +109,11 @@ export default {
           let adminInfo = resp.data.data;
           localStorage.setItem("user", JSON.stringify(adminInfo));
           sessionStorage.setItem("user", JSON.stringify(adminInfo));
-          this.$router.push({ path: "/home" });
+          if (adminInfo.role == 2) {
+            this.$router.push({ path: "/home" });
+          } else {
+            this.$router.push({ path: "/appointment" });
+          }
         } else {
           this.$message.error("账户或密码不正确");
         }
