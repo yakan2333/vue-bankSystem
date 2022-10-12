@@ -45,28 +45,30 @@
           <i class="el-icon-share">分享</i>
         </el-row>
         <el-row>
-          <el-col :span="6">
-            <span style="line-height: 40px">持有金额:</span>
+          <el-col :span="8">
+            <span style="line-height: 40px"
+              >持有金额:{{ fundDetail2.holdingMoney }}元</span
+            >
           </el-col>
-          <el-col :span="10">
-            <el-input placeholder="100" v-model="fundDetail2.holdingMoney">
+          <el-col :span="8">
+            <el-input placeholder="100" v-model="sellNum">
               <span
                 slot="suffix"
                 style="line-height: 40px; color: black; margin-right: 5px"
-                >元
+                >份
               </span>
               <el-button
                 style="margin-right: -5px"
                 slot="suffix"
                 type="primary"
-                @click="handToBuy"
+                @click="OpenCheckBox"
                 >卖出</el-button
               >
             </el-input>
           </el-col>
           <div style="float: right">
             <el-button type="primary" plain @click="handToBuy"
-              ><i class="el-icon-coin"></i>买入</el-button
+              ><i class="el-icon-coin"></i>继续买入</el-button
             >
           </div>
         </el-row>
@@ -96,6 +98,8 @@ export default {
     return {
       // 客户买入数量
       num: 10,
+      // 卖出份额
+      sellNum: 1,
       // 基金信息
       fundDetail: {
         cumulativeEquity: 1.8698,
@@ -119,6 +123,8 @@ export default {
       },
       // 我的基金页面传来的数据
       fundDetail2: {},
+      // 用户信息
+      userInfo: {},
       data1: [
         ["2000-06-05", 116],
         ["2000-06-06", 129],
@@ -238,7 +244,7 @@ export default {
     // 跳转到购买页面
     handToBuy() {
       sessionStorage.setItem("amountData", this.num);
-      this.$router.push("fundPurchase");
+      this.$router.push({ name: "fundPurchase" });
     },
     // 获取图标数组
     getChartData() {
@@ -261,7 +267,7 @@ export default {
     // 获取基金详情
     getFundData() {
       this.$axios("/fund/list", {
-        params: { num: this.fundDetail2.name },
+        params: { name: this.fundDetail2.name },
       })
         .then((resp) => {
           if (resp.data.code == 200) {
@@ -274,11 +280,59 @@ export default {
           this.getChartData();
         });
     },
+    // 卖出基金
+    sellFund() {
+      this.$axios("/sell", {
+        params: {
+          cardNo: "6222025814936045931",
+          sellNum: this.sellNum,
+          fundNum: this.fundDetail.num,
+          userId: this.userInfo.id,
+        },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          console.log("卖出成功");
+          this.$router.push("myFundList");
+        } else {
+          console.log("卖出失败");
+        }
+      });
+    },
+    OpenCheckBox() {
+      this.$prompt("确认支付密码", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputType: "password",
+      })
+        .then(({ value }) => {
+          if (value == "123456") {
+            this.$message({
+              type: "success",
+              message: "卖出成功",
+            });
+            this.sellFund();
+          } else {
+            this.$message({
+              type: "error",
+              message: "密码错误",
+            });
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "取消输入",
+          });
+        });
+    },
   },
   mounted() {
-    let fundData = sessionStorage.getItem("postFundData");
+    let fundData = sessionStorage.getItem("postFundData1");
     this.fundDetail2 = JSON.parse(fundData);
-    console.log(this.fundDetail2);
+    if (localStorage.getItem("user")) {
+      let p = JSON.parse(localStorage.getItem("user"));
+      this.userInfo = p;
+    }
     this.getFundData();
   },
 };

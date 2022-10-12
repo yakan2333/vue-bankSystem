@@ -244,16 +244,11 @@ export default {
       this.$prompt("确认支付密码", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
+        inputType: "password",
       })
         .then(({ value }) => {
           if (value == "123456") {
-            this.$message({
-              type: "success",
-              message: "购买成功",
-            });
-            // this.$router.push({ name: "myFundList" });
             this.getResultData();
-            this.$router.push({ name: "backInfo" });
           } else {
             this.$message({
               type: "error",
@@ -277,20 +272,33 @@ export default {
           purchaseAmount: this.ruleForm.amount,
           fundNum: this.FundData.num,
           userId: this.userData.id,
+          transferEquity: this.FundData.latestEquity,
         },
-      }).then((resp) => {
-        if (resp.data.code == 200) {
-          this.purchaseResult = resp.data.data;
-          sessionStorage.setItem(
-            "purchaseResult",
-            JSON.stringify(this.purchaseResult)
-          );
-          console.log("购买结果：");
-          console.log(this.purchaseResult);
-        } else {
-          this.purchaseResult = {};
-        }
-      });
+      })
+        .then((resp) => {
+          if (resp.data.code == 200) {
+            this.purchaseResult = resp.data.data;
+            sessionStorage.setItem(
+              "purchaseResult",
+              JSON.stringify(this.purchaseResult)
+            );
+            this.$message({
+              type: "success",
+              message: "购买成功",
+            });
+            console.log("购买结果：");
+            console.log(this.purchaseResult);
+          } else {
+            this.$message({
+              type: "error",
+              message: "购买失败",
+            });
+            this.purchaseResult = {};
+          }
+        })
+        .then(() => {
+          this.$router.push({ name: "backInfo" });
+        });
     },
     // 获取卡信息
     getCardData() {

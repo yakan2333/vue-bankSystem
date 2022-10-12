@@ -146,6 +146,36 @@ export const adminRoutes = [
 ]
 // 普通用户路由
 export const userRoutes = [
+  // 预约服务
+  {
+    path: '/appointment',
+    component: Layout,
+    redirect: '/appointment/index',
+    meta: {
+      title: '预约服务',
+      icon: 'el-icon-date'
+    },
+    role: 1,
+    children: [{
+      path: 'index',
+      name: 'appointment',
+      component: () => import('@/pages/appointment/index'),
+      meta: {
+        title: '预约服务',
+        icon: 'el-icon-date'
+      }
+    },
+    {
+      path: 'myAppointment',
+      name: 'myAppointment',
+      component: () => import('@/pages/appointment/myAppointment'),
+      meta: {
+        title: '我的预约',
+        icon: 'el-icon-document'
+      }
+    },
+    ]
+  },
   // 基金交易
   {
     path: '/fundTrade',
@@ -254,35 +284,6 @@ export const userRoutes = [
       },
     ]
   },
-  // 预约服务
-  {
-    path: '/appointment',
-    component: Layout,
-    meta: {
-      title: '预约服务',
-      icon: 'el-icon-date'
-    },
-    role: 1,
-    children: [{
-      path: 'index',
-      name: 'appointment',
-      component: () => import('@/pages/appointment/index'),
-      meta: {
-        title: '预约服务',
-        icon: 'el-icon-date'
-      }
-    },
-    {
-      path: 'myAppointment',
-      name: 'myAppointment',
-      component: () => import('@/pages/appointment/myAppointment'),
-      meta: {
-        title: '我的预约',
-        icon: 'el-icon-document'
-      }
-    },
-    ]
-  },
 ]
 
 export const constantRoutes = [{
@@ -304,6 +305,7 @@ export const constantRoutes = [{
     title: '首页',
     icon: 'dashboard'
   },
+  role: 2,
   redirect: '/home',
   children: [{
     path: 'home',

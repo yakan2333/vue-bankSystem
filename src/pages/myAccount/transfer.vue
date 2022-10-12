@@ -20,21 +20,14 @@
             style="text-align: left"
           >
             <el-row v-if="active === 0">
-              <el-form-item label="收款户名" prop="collectionUsername">
-                <el-input v-model="ruleForm.collectionUsername"/>
-              </el-form-item>
-            </el-row>
-            <el-row v-if="active === 0">
               <el-form-item label="收款账号" prop="collectionCardNo">
-                <el-input v-model="ruleForm.collectionCardNo"/>
+                <el-input  @blur="onBsp($event)" v-model="ruleForm.collectionCardNo"/>
+                <span style="color: #5a5e66">例如：6222020896475210582</span>
               </el-form-item>
             </el-row>
             <el-row v-if="active === 0">
-              <el-form-item label="收款银行" prop="transferBank">
-                <el-select v-model="ruleForm.transferBank" placeholder="请选择银行">
-                  <el-option label="中国建设银行" value="中国建设银行"/>
-                  <el-option label="中国工商银行" value="中国工商银行"/>
-                </el-select>
+              <el-form-item label="收款户名" prop="collectionUsername">
+                <el-input disabled v-model="ruleForm.collectionUsername"/>
               </el-form-item>
             </el-row>
             <el-row v-if="active === 1">
@@ -103,7 +96,7 @@ export default {
       ruleForm: {
         collectionUsername: "", // 收款户名
         collectionCardNo: "", // 收款账号
-        transferBank: "", // 收款银行
+        transferBank: "中国建设银行", // 收款银行
         transferCardNo: "", // 转账卡号
         transferMoney: "", // 转账金额
         password: "", // 密码
@@ -176,6 +169,24 @@ export default {
     this.getCardIds()
   },
   methods: {
+    onBsp(event) {
+      this.$axios("/tf/getName", {
+        params: {
+          cardNo: event.target.value
+        },
+      }).then((resp) => {
+        if (resp.data.code == 200) {
+          let name = resp.data.data.name
+          this.ruleForm.collectionUsername = name.replace(/([\u4e00-\u9fa5])[\u4e00-\u9fa5]([\u4e00-\u9fa5]*)/, '$1*$2')
+        } else {
+          this.$message({
+            type: "error",
+            message: resp.data.msg,
+          });
+          this.ruleForm.collectionUsername = ''
+        }
+      });
+    },
     getCardIds() {
       this.$axios("/tf/getCardIds", {
         params: {userId: this.user.id,},

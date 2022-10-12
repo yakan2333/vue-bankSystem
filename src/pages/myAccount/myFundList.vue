@@ -49,13 +49,13 @@
           <el-button size="mini" @click="handleEdit(scope.row)">
             查看
           </el-button>
-          <el-button
+          <!-- <el-button
             size="mini"
             type="danger"
             @click="handlePurchase(scope.row)"
           >
             卖出
-          </el-button>
+          </el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -202,8 +202,8 @@ export default {
     //查看详情
     handleEdit(row) {
       this.postFundData = JSON.stringify(row);
-      sessionStorage.setItem("postFundData", this.postFundData);
-      // this.$bus.$emit("staffData", this.postData);
+      sessionStorage.setItem("postFundData1", this.postFundData);
+      console.log(this.postFundData);
       this.$router.push("myFundDetail");
     },
     //购买基金
