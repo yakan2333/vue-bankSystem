@@ -9,6 +9,9 @@
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
             </el-select>
+            <button id="sortByDistance">根据距离排序</button>
+            <button id="sortByNum">根据预约人数排序</button>
+            <button id="sortByTime">根据综合等待时间排序</button>
         </div>
 
         <div>
@@ -59,7 +62,7 @@ export default {
                 { value: 4, label: '16:00-18:00' },
             ],
             iconSize: { w: 30, h: 30, l: 0, t: 0, x: 6, lb: 5 },
-            userMarkerInfo: { id: "sb", url: "src\pages\appointment\img\银行.png", title: "华少", content: "您的位置", lng: 0, lat: 0 },
+            userMarkerInfo: { id: "sb", url: "src\pages\appointment\img\银行.png", title: "用户", content: "您的位置", lng: 0, lat: 0 },
         };
     },
     mounted() {
@@ -67,7 +70,7 @@ export default {
 
         let that = this;
         axios.get("/getMechanismList").then(function (response) {
-            console.log(response.data.data);
+            //console.log(response.data.data);
 
             //批量生成网点的坐标标注
             that.addMechanismPointInfo(that.taransResponse(response.data.data));
@@ -112,9 +115,9 @@ export default {
                 map.centerAndZoom(userPoint, 15);//以用户当前坐标为中心生成地图，地图初始大小15，范围3-19
                 that.addMarker(that.userMarkerInfo);
                 window.userPoint = userPoint;
+
+                that.showLine(that.userMarkerInfo.lng, that.userMarkerInfo.lat);
             })
-
-
         },
 
         setMapEvent() {
@@ -168,7 +171,7 @@ export default {
             let iconSize = this.iconSize;
             //根据json中的信息生成icon
             var icon = new
-                BMap.Icon(json.url,
+                BMap.Icon("./assets/bg.jpg",
                     new BMap.Size(iconSize.w, iconSize.h),
                     {
                         imageOffset: new BMap.Size(-iconSize.l, -iconSize.t), infoWindowOffset: new BMap.Size(iconSize.lb + 5, 1),
@@ -194,8 +197,20 @@ export default {
                 }, 1000);
             });
 
+            let btSortByDistance = document.getElementById("sortByDistance");
+            btSortByDistance.addEventListener('click', function () {
+                that.sortByDistance();
+            });
 
-            
+            let btSortByNum = document.getElementById("sortByNum");
+            btSortByNum.addEventListener('click', function () {
+                that.sortByNum();
+            });
+
+            let btSortByTime = document.getElementById("sortByTime");
+            btSortByTime.addEventListener('click', function () {
+                that.sortByTime();
+            });
         },
 
         //批量增加点和标注
@@ -361,6 +376,74 @@ export default {
                     this.getresult();
                 }
             });
+        },
+
+        sortByDistance() {
+            let list = this.tableData;
+
+            list.sort(function (a, b) {
+                return a.distance - b.distance;
+            })
+
+            this.tableData = list;
+        },
+
+        sortByNum() {
+            let list = this.tableData;
+
+            list.sort(function (a, b) {
+                return a.num - b.num;
+            })
+
+            this.tableData = list;
+        },
+
+        sortByTime() {
+            let list = this.tableData;
+
+            list.sort(function (a, b) {
+                return a.time - b.time;
+            })
+
+            this.tableData = list;
+        },
+
+        showLine(userLng, userLat) {
+            axios.get("/showLine", {
+                params: {
+                    userLng: userLng,
+                    userLat: userLat,
+                }
+            }).then((resp) => {
+                console.log("画线");
+                //console.log(resp.data.data.data);
+
+                let res = resp.data.data.data;
+
+                for (let i = 0; i < res.length; i++) {
+                    let list0 = res[i];
+                    let lineList = new Array();
+                    for (let j = 0; j < list0.list.length; j++) {
+                        let sb = list0.list[j].split(',');
+                        lineList.push(new BMap.Point(sb[0], sb[1]));
+                    }
+
+                    this.drawLine(lineList);
+
+                    /* console.log("第" + i + "条路线");
+                    console.log(lineList); */
+                }
+
+            });
+        },
+
+        drawLine(list) {
+            let r = Math.floor(Math.random() * 255);
+            let g = Math.floor(Math.random() * 255);
+            let b = Math.floor(Math.random() * 255);
+            let color = 'rgba(' + r + ',' + g + ',' + b + ',0.8)';
+            var polyline = new BMap.Polyline(list, { strokeColor: color, strokeWeight: 6, strokeOpacity: 0.7 });
+            map.addOverlay(polyline);
         }
     }
 }
@@ -372,4 +455,3 @@ export default {
     height: 600px;
 }
 </style>
-  
