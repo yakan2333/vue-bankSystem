@@ -171,7 +171,7 @@ export default {
             let iconSize = this.iconSize;
             //根据json中的信息生成icon
             var icon = new
-                BMap.Icon("./assets/bg.jpg",
+                BMap.Icon(require('@/assets/bank.jpg'),
                     new BMap.Size(iconSize.w, iconSize.h),
                     {
                         imageOffset: new BMap.Size(-iconSize.l, -iconSize.t), infoWindowOffset: new BMap.Size(iconSize.lb + 5, 1),
